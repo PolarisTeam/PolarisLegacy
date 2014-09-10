@@ -9,3 +9,4 @@ notifications:
   irc: "irc.badnik.net#pso2"
 
 script: cmake . && make
+install: make get-deps
