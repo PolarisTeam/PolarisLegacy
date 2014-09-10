@@ -1,8 +1,6 @@
 #pragma once
-
-#include <bits/stringfwd.h>
 #include <stdint.h>
-#include <bits/basic_string.h>
+#include <string>
 #include "Packet.h"
 
 class SystemMessagePacket : public Packet {

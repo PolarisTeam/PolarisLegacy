@@ -10,11 +10,11 @@ struct PacketHeader {
 
 class Packet {
 public:
-    Packet();
-    virtual ~Packet();
+    Packet() {}
+    virtual ~Packet() {}
 
-    virtual PacketHeader getHeader();
-    virtual void* getData();
+    virtual PacketHeader getHeader() = 0;
+    virtual void* getData() = 0;
 
 protected:
     PacketHeader header;

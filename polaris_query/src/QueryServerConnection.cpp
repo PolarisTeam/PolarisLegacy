@@ -7,7 +7,7 @@ QueryServerConnection::QueryServerConnection(const StreamSocket &socket) : TCPSe
 void QueryServerConnection::run() {
     StreamSocket theSock = this->socket();
     std::string message = "Hello!\r\n";
-    theSock.sendBytes(message.c_str(), sizeof(message));
+    theSock.sendBytes(message.c_str(), (int) message.length());
     theSock.close();
 
     return;
