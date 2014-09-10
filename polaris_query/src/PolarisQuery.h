@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Poco/Util/ServerApplication.h"
-using Poco::Util::ServerApplication
+using Poco::Util::ServerApplication;
 
 class PolarisQuery : public ServerApplication {
 public:
