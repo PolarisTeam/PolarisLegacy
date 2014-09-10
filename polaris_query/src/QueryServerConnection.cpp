@@ -1,4 +1,3 @@
-#include <w32api/xcmc.h>
 #include "QueryServerConnection.h"
 using Poco::Net::StreamSocket;
 using Poco::Net::TCPServerConnection;
