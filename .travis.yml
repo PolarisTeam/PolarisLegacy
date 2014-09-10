@@ -1,0 +1,11 @@
+language: cpp
+compiler:
+  - gcc
+
+before_install:
+  - sudo apt-get install libpoco-dev
+
+notifications:
+  irc: "irc.badnik.net#pso2"
+
+script: cmake . && make
