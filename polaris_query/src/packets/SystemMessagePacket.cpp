@@ -12,7 +12,7 @@ SystemMessagePacket::SystemMessagePacket(std::wstring message, uint32_t messageT
 }
 
 SystemMessagePacket::~SystemMessagePacket() {
-
+    delete data;
 }
 
 PacketHeader SystemMessagePacket::getHeader() {

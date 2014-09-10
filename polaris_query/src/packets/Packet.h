@@ -18,4 +18,5 @@ public:
 
 protected:
     PacketHeader header;
+    void* data;
 };
