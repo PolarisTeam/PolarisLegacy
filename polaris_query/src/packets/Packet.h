@@ -8,6 +8,13 @@ struct PacketHeader {
     uint8_t subcommand;
     uint8_t flag1;
     uint8_t flag2;
+    PacketHeader(uint32_t length, uint8_t command, uint8_t subcommand, uint8_t flag1, uint8_t flag2) {
+        this->length = length;
+        this->command = command;
+        this->subcommand = subcommand;
+        this->flag1 = flag1;
+        this->flag2 = flag2;
+    }
 };
 
 class Packet {
