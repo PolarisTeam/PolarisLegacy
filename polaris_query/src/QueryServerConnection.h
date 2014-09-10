@@ -4,6 +4,6 @@
 
 class QueryServerConnection : public Poco::Net::TCPServerConnection {
 public:
-    QueryServerConnection(Poco::Net::StreamSocket & socket);
+    QueryServerConnection(const Poco::Net::StreamSocket & socket);
     void run();
 };

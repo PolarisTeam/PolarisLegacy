@@ -1,17 +1,16 @@
 #include "QueryServerConnection.h"
-#include <string>
 using Poco::Net::StreamSocket;
 using Poco::Net::TCPServerConnection;
 
-QueryServerConnection::QueryServerConnection(StreamSocket &socket) : TCPServerConnection(socket) {
+QueryServerConnection::QueryServerConnection(const StreamSocket &socket) : TCPServerConnection(socket) {
 
 }
 
 
 void QueryServerConnection::run() {
-    std::string test = "Sup.\r\n";
     StreamSocket theSock = this->socket();
-    theSock.sendBytes(test.c_str(), sizeof(test));
+    theSock.sendBytes("This is a string.\r\n", sizeof("This is a string.\r\n"));
+    theSock.close();
 
     return;
 }

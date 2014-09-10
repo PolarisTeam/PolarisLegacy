@@ -1,10 +1,12 @@
 #include <iostream>
 #include "PolarisQuery.h"
 #include "Poco/Net/TCPServer.h"
-#include "QueryServerFactory.h"
+#include "QueryServerConnection.h"
+
 using namespace std;
 using Poco::Net::TCPServer;
 using Poco::Net::ServerSocket;
+using Poco::Net::TCPServerConnectionFactoryImpl;
 
 int main(int argc, char** argv) {
     PolarisQuery app;
@@ -13,16 +15,14 @@ int main(int argc, char** argv) {
 
 int PolarisQuery::main(const std::vector<std::string> &args) {
     ServerSocket mySocket((Poco::UInt16) 1337);
-    QueryServerConnectionFactory* theFactory = new QueryServerConnectionFactory;
-    TCPServer theServer(theFactory, mySocket);
+    //QueryServerConnectionFactory* theFactory = new QueryServerConnectionFactory;
+    TCPServer theServer(new TCPServerConnectionFactoryImpl<QueryServerConnection>, mySocket);
 
     cout << "Listening on port 1337 for connections.";
 
     theServer.start();
 
     waitForTerminationRequest();
-
-    delete theFactory;
 
     return 0;
 }
