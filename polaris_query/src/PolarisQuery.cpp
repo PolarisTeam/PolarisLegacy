@@ -15,7 +15,6 @@ int main(int argc, char** argv) {
 
 int PolarisQuery::main(const std::vector<std::string> &args) {
     ServerSocket mySocket((Poco::UInt16) 1337);
-    //QueryServerConnectionFactory* theFactory = new QueryServerConnectionFactory;
     TCPServer theServer(new TCPServerConnectionFactoryImpl<QueryServerConnection>, mySocket);
 
     cout << "Listening on port 1337 for connections.";
