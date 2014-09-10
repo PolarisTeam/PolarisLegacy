@@ -3,10 +3,9 @@ compiler:
   - gcc
 
 before_install:
-  - sudo apt-get install libpoco-dev
+  - sudo apt-get install libpoco libpoco-dev
 
 notifications:
   irc: "irc.badnik.net#pso2"
 
 script: cmake . && make
-install: make get-deps
