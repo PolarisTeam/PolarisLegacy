@@ -1,3 +1,6 @@
+#include <string>
+#include <stdint.h>
+
 namespace Polaris {
     namespace Data {
         struct PSO2String {
