@@ -20,7 +20,7 @@ void PacketData::appendData(const void *data, size_t length) {
         return;
     }
 
-    if (currentPosition + length >= size) {
+    if (currentPosition + length > size) {
         std::cout << "PacketData is too big for buffer!\n";
         return;
     }
