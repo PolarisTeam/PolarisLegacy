@@ -8,7 +8,7 @@ private:
     std::basic_string<char16_t> message;
     uint32_t messageType;
 public:
-    SystemMessagePacket(std::basic_string<char16_t> message, uint32_t messageType);
+    SystemMessagePacket(char const *message, uint32_t messageType);
     ~SystemMessagePacket();
     PacketData build();
 };
