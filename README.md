@@ -1,5 +1,6 @@
 Polaris Server
 ====
+IRC: irc.badnik.net #pso2, come yell at us.
 
 Something something cmake.
 
