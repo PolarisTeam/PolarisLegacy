@@ -5,11 +5,10 @@
 
 class SystemMessagePacket : public Packet {
 private:
-    std::wstring message;
+    std::basic_string<char16_t> message;
     uint32_t messageType;
 public:
-    SystemMessagePacket(std::wstring message, uint32_t messageType);
+    SystemMessagePacket(std::basic_string<char16_t> message, uint32_t messageType);
     ~SystemMessagePacket();
-    PacketHeader getHeader();
-    void* getData();
+    PacketData build();
 };
