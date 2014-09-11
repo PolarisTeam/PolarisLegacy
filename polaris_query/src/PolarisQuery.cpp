@@ -2,6 +2,7 @@
 #include "PolarisQuery.h"
 #include "Poco/Net/TCPServer.h"
 #include "QueryServerConnection.h"
+#include "PolarisShared.h"
 
 using namespace std;
 using Poco::Net::TCPServer;
@@ -14,10 +15,10 @@ int main(int argc, char** argv) {
 }
 
 int PolarisQuery::main(const std::vector<std::string> &args) {
+    cout << "Polaris Server Emulator: Ship Query and Block Load balancer." << endl;
+    cout << "Compiled against libpolaris_shared verion " << Polaris::GetLibVersion() << " at " << Polaris::GetTimeCompiled() << endl;
     ServerSocket mySocket((Poco::UInt16) 1337);
     TCPServer theServer(new TCPServerConnectionFactoryImpl<QueryServerConnection>, mySocket);
-
-    cout << "Listening on port 1337 for connections.";
 
     theServer.start();
 
