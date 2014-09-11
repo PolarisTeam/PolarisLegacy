@@ -3,7 +3,6 @@
 #include "SystemMessagePacket.h"
 #include "Poco/BinaryWriter.h"
 #include "Poco/MemoryStream.h"
-#include "Poco/UnicodeConverter.h"
 #include "../data/PSO2String.h"
 
 SystemMessagePacket::SystemMessagePacket(std::string message, uint32_t messageType){
@@ -22,7 +21,7 @@ PacketData SystemMessagePacket::build() {
     PacketData data(header.length);
     data.appendData(&header, sizeof(header));
     data.appendData(&theString.magicValue, 4);
-    data.appendData(theString.utf16string, theString.dataLength - 4);
+    data.appendData(theString.utf16string.data(), theString.dataLength - 4);
     return data;
 
 
