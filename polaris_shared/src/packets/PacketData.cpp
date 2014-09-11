@@ -14,11 +14,11 @@ PacketData::~PacketData() {
 }
 
 void PacketData::appendData(const void *data, size_t length) {
-    if (currentPosition > size) {
+    if (currentPosition >= size) {
         return;
     }
 
-    if (currentPosition + length > size) {
+    if (currentPosition + length >= size) {
         return;
     }
 

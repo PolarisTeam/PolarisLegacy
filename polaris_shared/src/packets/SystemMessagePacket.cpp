@@ -22,7 +22,8 @@ PacketData SystemMessagePacket::build() {
     PacketHeader header((uint32_t) (sizeof(PacketHeader) + sizeof(uint32_t) + bigMessage.size() * sizeof(wchar_t) + sizeof(uint32_t)), 0x19, 0x01, 0x04, 0x00);
     PacketData data(header.length);
     data.appendData(&header, sizeof(header));
-    data.appendData(0, sizeof(uint32_t));
+    uint32_t stringMagic = 0; //FIXME
+    data.appendData(&stringMagic, sizeof(uint32_t));
     data.appendData(message.data(), message.size() * sizeof(wchar_t));
     data.appendData(&message, sizeof(uint32_t));
     return data;
