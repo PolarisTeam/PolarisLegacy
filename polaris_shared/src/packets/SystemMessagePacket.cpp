@@ -22,6 +22,7 @@ PacketData SystemMessagePacket::build() {
     data.appendData(&header, sizeof(header));
     data.appendData(&theString.magicValue, 4);
     data.appendData(theString.utf16string.data(), theString.dataLength - 4);
+    data.appendData(&messageType, 4);
     return data;
 
 
