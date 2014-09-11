@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "PacketData.h"
 
 struct PacketHeader {
     uint32_t length;
@@ -22,5 +23,5 @@ public:
     Packet() {}
     virtual ~Packet() {}
     virtual void parse(void* dataPtr, uint32_t size);
-    virtual std::vector<uint8_t> build();
+    virtual PacketData build();
 };
