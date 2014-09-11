@@ -18,10 +18,11 @@ SystemMessagePacket::~SystemMessagePacket() {
 PacketData SystemMessagePacket::build() {
     // Convert the sting to a PSO2String.
     Polaris::Data::PSO2String theString = Polaris::Data::CreatePSO2String(message, 0xA2, 0x78F7);
-    PacketHeader header((uint32_t) (sizeof(PacketHeader) + sizeof(uint32_t) + theString.utf16string.size() * sizeof(wchar_t) + sizeof(uint32_t)), 0x19, 0x01, 0x04, 0x00);
+    PacketHeader header((uint32_t) (sizeof(PacketHeader) + theString.dataLength + sizeof(uint32_t)), 0x19, 0x01, 0x04, 0x00);
     PacketData data(header.length);
     data.appendData(&header, sizeof(header));
-    data.appendData(&theString, theString.dataLength);
+    data.appendData(&theString.magicValue, 4);
+    data.appendData(theString.utf16string, theString.dataLength - 4);
     return data;
 
 
