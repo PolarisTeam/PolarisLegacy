@@ -1,4 +1,4 @@
-#include <bits/basic_string.h>
+#include <string>
 #include "PSO2String.h"
 #include "Poco/UnicodeConverter.h"
 
