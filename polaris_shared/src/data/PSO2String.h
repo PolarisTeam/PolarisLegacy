@@ -5,7 +5,7 @@ namespace Polaris {
     namespace Data {
         struct PSO2String {
             uint32_t magicValue;
-            std::wstring utf16string;
+            std::u16string utf16string;
             uint32_t dataLength;
         };
 
