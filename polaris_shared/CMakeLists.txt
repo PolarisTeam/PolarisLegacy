@@ -4,6 +4,8 @@ project(polaris_shared)
 include(GetGitRevisionDescription)
 get_git_head_revision(GIT_REFSPEC GIT_SHA1)
 
+add_definitions(-DGIT_VERSION=${GIT_SHA1})
+
 file(GLOB_RECURSE LIBPOLARIS_SOURCES *.cpp)
 
 add_library(polaris_shared ${LIBPOLARIS_SOURCES})
