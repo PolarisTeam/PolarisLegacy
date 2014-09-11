@@ -34,3 +34,7 @@ int PacketData::getSize() {
 uint8_t* PacketData::getData() {
     return this->dataPtr;
 }
+
+PacketData::PacketData() {
+    this->size = 0;
+}

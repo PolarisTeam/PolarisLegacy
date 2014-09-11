@@ -10,6 +10,7 @@
 */
 class PacketData {
 public:
+    PacketData();
     PacketData(size_t dataSize);
     ~PacketData();
     void appendData(const void* data, size_t length);
