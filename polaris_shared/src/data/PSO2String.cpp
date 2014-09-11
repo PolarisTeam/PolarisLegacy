@@ -9,5 +9,5 @@ Polaris::Data::PSO2String Polaris::Data::CreatePSO2String(std::string sourceStri
     Poco::UnicodeConverter::toUTF16(sourceString, utfstring);
     theString.utf16string = utfstring;
     theString.dataLength = sizeof(theString.magicValue) + utfstring.size() * sizeof(wchar_t);
-    return utfstring;
+    return theString;
 }
