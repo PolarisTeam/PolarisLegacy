@@ -3,7 +3,7 @@ class PacketData {
 public:
     PacketData(size_t dataSize);
     ~PacketData();
-    void appendData(void* data, size_t length);
+    void appendData(const void* data, size_t length);
     int getSize();
     void* getData();
 

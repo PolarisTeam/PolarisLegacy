@@ -1,4 +1,4 @@
-#include <w32api/nmsupp.h>
+#include <stdlib.h>
 #include <string.h>
 #include "PacketData.h"
 
@@ -13,7 +13,7 @@ PacketData::~PacketData() {
     delete dataPtr;
 }
 
-void PacketData::appendData(void *data, size_t length) {
+void PacketData::appendData(const void *data, size_t length) {
     if (currentPosition > size) {
         return;
     }
