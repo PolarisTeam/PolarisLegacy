@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.4)
+cmake_minimum_required(VERSION 2.8)
 project(polaris_query)
 
 file(GLOB_RECURSE SOURCE_FILES *.cpp)
