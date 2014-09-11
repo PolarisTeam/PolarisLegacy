@@ -5,7 +5,7 @@
 
 class SystemMessagePacket : public Packet {
 private:
-    std::basic_string<char16_t> message;
+    char const *message;
     uint32_t messageType;
 public:
     SystemMessagePacket(char const *message, uint32_t messageType);

@@ -10,7 +10,6 @@ void QueryServerConnection::run() {
     SystemMessagePacket systemMsg("This is a message!", 0x3);
     PacketData data = systemMsg.build();
     theSock.sendBytes(data.getData(), data.getSize());
-    //theSock.sendBytes(message.c_str(), message.length());
     theSock.close();
 
     return;
