@@ -12,7 +12,7 @@ notifications:
     channels:
       - "irc.badnik.net#pso2"
     on_success: change
-    on_failure: change
+    on_failure: always
 
 
 script: cmake . && make
