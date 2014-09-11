@@ -6,6 +6,12 @@ before_install:
   - sudo apt-get install libpoco-dev
 
 notifications:
-  irc: "irc.badnik.net#pso2"
+  email: false
+  irc:
+    channels:
+      - "irc.badnik.net#pso2"
+    on_success: change
+    on_failure: change
+
 
 script: cmake . && make
