@@ -4,13 +4,13 @@
 
 
 PacketData::PacketData(size_t dataSize) {
-    dataPtr = malloc(dataSize);
+    dataPtr = new uint8_t[dataSize];
     currentPosition = 0;
-    size = dataSize;
+    size = (int) dataSize;
 }
 
 PacketData::~PacketData() {
-    delete dataPtr;
+    delete[] dataPtr;
 }
 
 void PacketData::appendData(const void *data, size_t length) {
@@ -31,6 +31,6 @@ int PacketData::getSize() {
     return this->size;
 }
 
-void* PacketData::getData() {
+uint8_t* PacketData::getData() {
     return this->dataPtr;
 }
