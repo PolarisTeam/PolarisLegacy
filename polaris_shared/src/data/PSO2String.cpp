@@ -1,4 +1,3 @@
-#include <string>
 #include "PSO2String.h"
 #include "Poco/UnicodeConverter.h"
 
