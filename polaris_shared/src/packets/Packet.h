@@ -23,5 +23,5 @@ public:
     Packet() {}
     virtual ~Packet() {}
     virtual void parse(void* dataPtr, uint32_t size) {}
-    virtual PacketData build() { return NULL; }
+    virtual PacketData build() {}
 };
