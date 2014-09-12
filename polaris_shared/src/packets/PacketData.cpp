@@ -58,9 +58,9 @@ PacketData::PacketData() {
     this->size = 0;
 }
 
-PacketData::PacketData(void *dataPtr, size_t dataSize) {
+PacketData::PacketData(void *data, size_t dataSize) {
     dataPtr = new uint8_t[dataSize];
     currentPosition = 0;
     size = (int) dataSize;
-    appendData(dataPtr, dataSize);
+    appendData(data, dataSize);
 }
