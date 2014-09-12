@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Packet.h"
+#include "../Packet.h"
 #include <vector>
 #include <string>
 

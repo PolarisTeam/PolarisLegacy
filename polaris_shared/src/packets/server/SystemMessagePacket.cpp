@@ -3,7 +3,7 @@
 #include "SystemMessagePacket.h"
 #include "Poco/BinaryWriter.h"
 #include "Poco/MemoryStream.h"
-#include "../data/PSO2String.h"
+#include "../../data/PSO2String.h"
 
 SystemMessagePacket::SystemMessagePacket(std::string message, uint32_t messageType){
     this->message = message;

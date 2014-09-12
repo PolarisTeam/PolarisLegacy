@@ -1,7 +1,7 @@
 #pragma once
 #include <stdint.h>
 #include <string>
-#include "Packet.h"
+#include "../Packet.h"
 
 class SystemMessagePacket : public Packet {
 private:
