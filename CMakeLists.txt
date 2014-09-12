@@ -14,3 +14,4 @@ add_subdirectory(polaris_shared)
 include_directories(polaris_shared/src)
 
 add_subdirectory(polaris_query)
+add_subdirectory(polaris_block)
