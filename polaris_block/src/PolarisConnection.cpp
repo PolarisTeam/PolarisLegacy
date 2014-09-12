@@ -15,7 +15,7 @@ PolarisConnection::PolarisConnection(const StreamSocket& socket, SocketReactor& 
     reactor.addEventHandler(socket, NObserver<PolarisConnection, ReadableNotification>(*this, &PolarisConnection::onReadable));
     reactor.addEventHandler(socket, NObserver<PolarisConnection, ShutdownNotification>(*this, &PolarisConnection::onShutdown));
 
-    BlockHelloPacket hello(205);
+    BlockHelloPacket hello(201); // TODO Dynamic block pls
     PacketData helloData = hello.build(); // TODO Make this cleaner
     this->socket.sendBytes(helloData.getData(), helloData.getSize());
 }
