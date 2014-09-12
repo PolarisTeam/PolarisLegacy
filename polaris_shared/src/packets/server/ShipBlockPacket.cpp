@@ -1,3 +1,6 @@
+#include <string.h>
+#include "ShipBlockPacket.h"
+
 ShipBlockPacket::ShipBlockPacket(uint8_t ip1, uint8_t ip2, uint8_t ip3, uint8_t ip4, uint16_t port) {
     static const uint8_t ipBits[] = { ip1, ip2, ip3, ip4};
     memcpy(this->ipaddr, ipBits, sizeof(ipBits));
