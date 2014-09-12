@@ -1,4 +1,5 @@
 #include <packets/Packet.h>
+#include "packets/server/BlockHelloPacket.h"
 #include <string.h>
 #include "PolarisConnection.h"
 #include "PolarisClient.h"
@@ -13,6 +14,10 @@ PolarisConnection::PolarisConnection(const StreamSocket& socket, SocketReactor& 
 
     reactor.addEventHandler(socket, NObserver<PolarisConnection, ReadableNotification>(*this, &PolarisConnection::onReadable));
     reactor.addEventHandler(socket, NObserver<PolarisConnection, ShutdownNotification>(*this, &PolarisConnection::onShutdown));
+
+    BlockHelloPacket hello(205);
+    PacketData helloData = hello.build(); // TODO Make this cleaner
+    this->socket.sendBytes(helloData.getData(), helloData.getSize());
 }
 
 PolarisConnection::~PolarisConnection() {
