@@ -1,6 +1,6 @@
 #include "Poco/Util/ServerApplication.h"
 
-using Poco::Util::ServerApplication
+using Poco::Util::ServerApplication;
 
 class PolarisBlockApp : public ServerApplication {
 public:
