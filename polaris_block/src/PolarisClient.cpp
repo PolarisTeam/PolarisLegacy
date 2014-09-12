@@ -1,7 +1,7 @@
 #include "PolarisConnection.h"
 #include "PolarisClient.h"
 
-extern std::list<PolarisClient *> clients;
+std::list<PolarisClient *> clients;
 
 PolarisClient::PolarisClient(PolarisConnection* connection) : theConnection(connection) {
     clients.push_back(this);
@@ -12,5 +12,5 @@ PolarisClient::~PolarisClient() {
 }
 
 PolarisConnection &PolarisClient::getConnection() {
-    return this->*theConnection;
+    return *this->theConnection;
 }

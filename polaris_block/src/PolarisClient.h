@@ -16,4 +16,4 @@ private:
     uint32_t player_id;
 };
 
-std::list<PolarisClient *> clients;
+extern std::list<PolarisClient *> clients;
