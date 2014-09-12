@@ -1,7 +1,7 @@
 #include "ShipBlockConnection.h"
 #include "packets/server/ShipBlockPacket.h"
 
-using Poco::Net::StreamSocket
+using Poco::Net::StreamSocket;
 
 ShipBlockConnection::ShipBlockConnection(const Poco::Net::StreamSocket &socket) : TCPServerConnection(socket) {}
 

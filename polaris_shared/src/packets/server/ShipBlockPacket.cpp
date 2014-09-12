@@ -7,9 +7,7 @@ ShipBlockPacket::ShipBlockPacket(uint8_t ip1, uint8_t ip2, uint8_t ip3, uint8_t 
     this->port = port;
 }
 
-ShipBlockPacket::~ShipBlockPacket() {
-    delete[] ipaddr;
-}
+ShipBlockPacket::~ShipBlockPacket() {}
 
 PacketData ShipBlockPacket::build() {
     PacketData data;
