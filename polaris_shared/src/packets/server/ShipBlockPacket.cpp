@@ -14,7 +14,7 @@ PacketData ShipBlockPacket::build() {
     PacketHeader header(0x90, 0x11, 0x2C, 0x0, 0x0);
     data.appendData(&header, sizeof(header));
 
-    // TODO fill in gap
+    data.appendBytes(0, 0x64 - sizeof(header));
 
     // Offset 0x64
     data.appendData(&ipaddr, 4);
@@ -22,7 +22,7 @@ PacketData ShipBlockPacket::build() {
     // Offset 0x68
     data.appendData(&port, 2);
 
-    // TODO fill in gap
+    data.appendBytes(0, 0x90 - 0x6A);
 
     return data;
 }

@@ -30,6 +30,22 @@ void PacketData::appendData(const void *data, size_t length) {
     currentPosition += length;
 }
 
+void PacketData::appendBytes(int value, size_t length) {
+    if (currentPosition >= size) {
+        std::cout << "PacketData is too big for buffer!\n";
+        return;
+    }
+
+    if (currentPosition + length > size) {
+        std::cout << "PacketData is too big for buffer!\n";
+        return;
+    }
+
+    memset(dataPtr + currentPosition, value, length);
+
+    currentPosition += length;
+}
+
 int PacketData::getSize() {
     return this->size;
 }
