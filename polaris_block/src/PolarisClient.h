@@ -1,14 +1,19 @@
 #pragma once
 
+#include <list>
 #include "PolarisConnection.h"
 
 class PolarisClient {
 public:
-    PolarisClient(PolarisConnection connection);
+    PolarisClient(PolarisConnection* connection);
+    PolarisConnection& getConnection();
     ~PolarisClient();
 
 private:
-    PolarisConnection theConnection;
+    PolarisConnection* theConnection;
+    std::string sega_id;
+    std::u16string current_character_name;
+    uint32_t player_id;
 };
 
-std::vector<PolarisClient> clients;
+std::list<PolarisClient *> clients;

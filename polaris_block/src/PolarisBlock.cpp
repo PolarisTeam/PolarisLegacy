@@ -4,6 +4,7 @@
 #include "Poco/Net/SocketReactor.h"
 #include "Poco/Net/SocketAcceptor.h"
 #include "Poco/Thread.h"
+#include "PolarisConnection.h"
 
 using Poco::Net::ServerSocket;
 using Poco::Net::SocketReactor;
@@ -22,7 +23,7 @@ int PolarisBlockApp::main(const std::vector<std::string> &args) {
     SocketReactor reactor;
 
     // Assign the Connector
-    //TODO
+    SocketAcceptor<PolarisConnection> acceptor(blockSocket, reactor);
 
     Thread thread;
     thread.start(reactor);
