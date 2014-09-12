@@ -10,7 +10,7 @@ ShipBlockPacket::ShipBlockPacket(uint8_t ip1, uint8_t ip2, uint8_t ip3, uint8_t 
 ShipBlockPacket::~ShipBlockPacket() {}
 
 PacketData ShipBlockPacket::build() {
-    PacketData data;
+    PacketData data(0x90);
     PacketHeader header(0x90, 0x11, 0x2C, 0x0, 0x0);
     data.appendData(&header, sizeof(header));
 
