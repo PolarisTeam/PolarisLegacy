@@ -1,6 +1,9 @@
+#pragma once
+
 #include <stddef.h>
 #include <stdint.h>
-#include "Packet.h"
+
+struct PacketHeader;
 
 /**
 * PacketData class.
@@ -12,7 +15,7 @@ class PacketData {
 public:
     PacketData();
     PacketData(size_t dataSize);
-    PacketData(PacketHeader header, void* dataPtr, size_t dataSize);
+    PacketData(PacketHeader header, void* data);
     ~PacketData();
     void appendData(const void* data, size_t length);
     void appendBytes(int value, size_t length);

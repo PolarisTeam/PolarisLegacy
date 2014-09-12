@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
-#include "PacketData.h"
+#include "Packet.h"
 
 
 PacketData::PacketData(size_t dataSize) {
@@ -58,10 +58,10 @@ PacketData::PacketData() {
     this->size = 0;
 }
 
-PacketData::PacketData(PacketHeader header, void *data, size_t dataSize) {
-    dataPtr = new uint8_t[dataSize];
+PacketData::PacketData(PacketHeader header, void *data) {
+    dataPtr = new uint8_t[header.length];
     currentPosition = 0;
-    size = (int) dataSize;
+    size = (int) header.length;
     appendData(&header, sizeof(header));
-    appendData(data, dataSize);
+    appendData(data, header.length - sizeof(header));
 }

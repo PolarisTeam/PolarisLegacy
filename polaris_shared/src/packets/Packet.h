@@ -18,6 +18,7 @@ struct PacketHeader {
     }
 };
 
+
 class Packet {
 public:
     Packet() {}
