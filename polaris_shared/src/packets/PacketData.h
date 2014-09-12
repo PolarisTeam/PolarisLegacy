@@ -1,5 +1,6 @@
 #include <stddef.h>
 #include <stdint.h>
+#include "Packet.h"
 
 /**
 * PacketData class.
@@ -11,7 +12,7 @@ class PacketData {
 public:
     PacketData();
     PacketData(size_t dataSize);
-    PacketData(void* dataPtr, size_t dataSize);
+    PacketData(PacketHeader header, void* dataPtr, size_t dataSize);
     ~PacketData();
     void appendData(const void* data, size_t length);
     void appendBytes(int value, size_t length);
