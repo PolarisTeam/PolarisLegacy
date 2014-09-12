@@ -3,6 +3,7 @@
 #include "Poco/Net/TCPServer.h"
 #include "ShipStatusConnection.h"
 #include "PolarisShared.h"
+#include "ShipBlockConnection.h"
 
 using namespace std;
 using Poco::Net::TCPServer;
@@ -21,6 +22,8 @@ int PolarisQuery::main(const std::vector<std::string> &args) {
     for (int i = 0; i < 10; i++) {
         servers.push_back(new TCPServer(new TCPServerConnectionFactoryImpl<ShipStatusConnection>, ServerSocket((Poco::UInt16) (12099 + (100 * i)))));
     }
+
+    servers.push_back(new TCPServer(new TCPServerConnectionFactoryImpl<ShipBlockConnection>, ServerSocket((Poco::UInt16) 12200))); // Ship 2 block balancer
 
     for(auto &i : servers) {
         i->start();
