@@ -168,6 +168,10 @@ void PolarisConnection::handleKeyExchange(uint8_t *packet) {
             delete dec;
 
             // Second, enable RC4 encryption on this connection
+            if (outputTransform)
+                delete outputTransform;
+            if (inputTransform)
+                delete inputTransform;
             outputTransform = cipher->createEncryptor();
             inputTransform = cipher->createDecryptor();
 
