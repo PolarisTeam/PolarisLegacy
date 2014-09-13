@@ -6,7 +6,6 @@
 #include "Poco/Crypto/CipherFactory.h"
 #include <string.h>
 #include <packets/server/SystemMessagePacket.h>
-#include <w32api/asptlb.h>
 #include <packets/FixedLengthPacket.h>
 #include "PolarisConnection.h"
 #include "PolarisClient.h"
