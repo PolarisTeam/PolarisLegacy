@@ -5,6 +5,7 @@
 #include "Poco/Crypto/CipherKey.h"
 #include "Poco/Crypto/CipherFactory.h"
 #include <string.h>
+#include <packets/server/SystemMessagePacket.h>
 #include "PolarisConnection.h"
 #include "PolarisClient.h"
 
@@ -121,6 +122,11 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
         // Key exchange
         handleKeyExchange(packet);
         return;
+    }
+
+    if (header->command == 0x11 && header->subcommand == 0x00) {
+        PacketData welcomeMsg(SystemMessagePacket("This has not been implemented yet.\nThank you for connecting to a PolarisServer.", 0x1).build());
+        sendPacket(welcomeMsg);
     }
 }
 
