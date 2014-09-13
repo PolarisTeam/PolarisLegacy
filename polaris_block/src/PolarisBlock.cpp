@@ -3,6 +3,7 @@
 #include "Poco/Net/ServerSocket.h"
 #include "Poco/Net/SocketReactor.h"
 #include "Poco/Net/SocketAcceptor.h"
+#include "Poco/Thread.h"
 #include "PolarisConnection.h"
 
 using Poco::Net::ServerSocket;
