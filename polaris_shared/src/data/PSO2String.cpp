@@ -1,11 +1,18 @@
 #include <locale>
 #include "PSO2String.h"
 
-Polaris::Data::PSO2String Polaris::Data::CreatePSO2String(std::string sourceString, int subValue, int xorValue) {
+Polaris::Data::PSO2String Polaris::Data::CreatePSO2String(std::u16string sourceString, int subValue, int xorValue) {
     PSO2String theString;
-    //std::wstring_convert<
-    //theString.magicValue = (uint32_t) (((sourceString.size() + 1) + subValue) ^ xorValue);
-    //theString.utf16string = convert.;//std::u16string(sourceString);
-    //theString.dataLength = (uint32_t) (sizeof(theString.magicValue) + utfstring.size() * sizeof(wchar_t));
+
+    theString.utf16string = sourceString;
+
+    theString.magicValue = (uint32_t) (((theString.utf16string.size() + 1) + subValue) ^ xorValue);
+
+    if ((theString.utf16string.size() & 1) == 0) {
+        // add a padding character
+        theString.utf16string.push_back(0);
+    }
+    theString.dataLength = (uint32_t) ((theString.utf16string.size() + 1) * 2);
+
     return theString;
 }

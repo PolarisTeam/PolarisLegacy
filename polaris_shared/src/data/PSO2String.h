@@ -9,6 +9,6 @@ namespace Polaris {
             uint32_t dataLength;
         };
 
-        PSO2String CreatePSO2String(std::string sourceString, int subValue, int xorValue);
+        PSO2String CreatePSO2String(std::u16string sourceString, int subValue, int xorValue);
     }
 }

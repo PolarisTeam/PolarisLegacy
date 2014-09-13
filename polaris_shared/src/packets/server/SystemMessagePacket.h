@@ -5,10 +5,10 @@
 
 class SystemMessagePacket : public Packet {
 private:
-    std::string message;
+    std::u16string message;
     uint32_t messageType;
 public:
-    SystemMessagePacket(std::string message, uint32_t messageType);
+    SystemMessagePacket(std::u16string message, uint32_t messageType);
     ~SystemMessagePacket();
     PacketData build();
 };
