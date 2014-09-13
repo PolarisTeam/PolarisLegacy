@@ -208,7 +208,8 @@ void PolarisConnection::handleKeyExchange(uint8_t *packet) {
         }
 
     } catch (Poco::Exception &e) {
-        Poco::Util::Application::instance().logger().error(Polaris::string_format("[Key exchange error:]\n%s\n", e.displayText().c_str()));
+        Poco::Util::Application::instance().logger().error(Polaris::string_format("[Key exchange error: %s]", e.displayText().c_str()));
+        socket.close();
     }
 
     if (rsa)
