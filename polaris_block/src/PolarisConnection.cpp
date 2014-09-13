@@ -181,7 +181,7 @@ void PolarisConnection::handleKeyExchange(uint8_t *packet) {
         }
 
     } catch (Poco::Exception &e) {
-
+        printf("[Key exchange error:]\n%s\n", e.displayText().c_str());
     }
 
     if (rsa)
