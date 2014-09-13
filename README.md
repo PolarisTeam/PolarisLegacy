@@ -1,11 +1,19 @@
 Polaris Server
 ====
-IRC: irc.badnik.net #pso2, come yell at us.
+## Information
+We're a PSO2 Private server, very, very WIP.
 
-Something something cmake.
+*Status:* The basic framework is being coded and basic protocol is being worked on. *No it is not playable yet.*
 
-Something something libpoco.
+If you'd like to contribute, contact us on [IRC] (irc://irc.badnik.net/pso2) at irc.badnik.net #pso2
 
-Something something travis-ci [![Build Status](https://travis-ci.org/cyberkitsune/PolarisServer.svg?branch=master)](https://travis-ci.org/cyberkitsune/PolarisServer)
+Build Status: [![Build Status](https://travis-ci.org/cyberkitsune/PolarisServer.svg?branch=master)](https://travis-ci.org/cyberkitsune/PolarisServer)
 
-(If you haven't noticed there's not a lot going on here.)
+## Building
+1. Install libpoco-dev and cmake, along with basic development tools. On Debian based systems:
+```
+apt-get install libpoco-dev cmake build-essential git
+```
+2. Clone this repo.
+3. `cmake . && make` and hope the build isn't broken.
+4. Watch as the server doesn't do anything. AMAZING!
