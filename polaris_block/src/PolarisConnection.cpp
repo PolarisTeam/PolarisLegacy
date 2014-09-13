@@ -24,6 +24,8 @@ PolarisConnection::PolarisConnection(const StreamSocket& socket, SocketReactor& 
     reactor.addEventHandler(socket, NObserver<PolarisConnection, ReadableNotification>(*this, &PolarisConnection::onReadable));
     reactor.addEventHandler(socket, NObserver<PolarisConnection, ShutdownNotification>(*this, &PolarisConnection::onShutdown));
 
+    Poco::Util::Application::instance().logger().information("New client connected, saying hello!");
+
     BlockHelloPacket hello(201); // TODO Dynamic block pls
     PacketData helloData = hello.build();
     sendPacket(helloData);
