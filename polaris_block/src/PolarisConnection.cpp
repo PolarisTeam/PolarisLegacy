@@ -7,9 +7,13 @@
 #include <string.h>
 #include <packets/server/SystemMessagePacket.h>
 #include <packets/FixedLengthPacket.h>
+#include <fstream>
+#include <ctime>
 #include "PolarisConnection.h"
 #include "PolarisClient.h"
 #include "Poco/Util/Application.h"
+#include "Poco/File.h"
+#include "Poco/FileStream.h"
 #include "RandomHelper.h"
 
 PolarisConnection::PolarisConnection(const StreamSocket& socket, SocketReactor& reactor):
@@ -121,7 +125,15 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
     if (header->length < 8)
         return;
 
-    Poco::Util::Application::instance().logger().information(Polaris::string_format("[Received packet : %d bytes, type %x-%x]\n", header->length, header->command, header->subcommand));
+    Poco::Util::Application::instance().logger().information(Polaris::string_format("[Received packet : %d bytes, type %x-%x]", header->length, header->command, header->subcommand));
+    Poco::File folder("incomingPackets/");
+    folder.createDirectories();
+    std::time_t theTime = std::time(NULL);;
+    Poco::FileOutputStream packetFileWriter(Polaris::string_format("incomingPackets/%i.%x-%x.bin", theTime, header->command, header->subcommand));
+    packetFileWriter.write((char const *) packet, header->length);
+    packetFileWriter.flush();
+    packetFileWriter.close();
+
 
     if (header->command == 0x11 && header->subcommand == 0xB) {
         // Key exchange
