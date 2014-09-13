@@ -7,6 +7,7 @@
 #include <string.h>
 #include <packets/server/SystemMessagePacket.h>
 #include <w32api/asptlb.h>
+#include <packets/FixedLengthPacket.h>
 #include "PolarisConnection.h"
 #include "PolarisClient.h"
 #include "Poco/Util/Application.h"
@@ -99,7 +100,7 @@ void PolarisConnection::onReadable(AutoPtr<ReadableNotification> const &notifica
 
 void PolarisConnection::sendPacket(PacketData &data) {
     PacketHeader *header = (PacketHeader *)data.getData();
-    printf("[Sending packet : %d bytes, type %x-%x]\n", header->length, header->command, header->subcommand);
+    Poco::Util::Application::instance().logger().information(Polaris::string_format("[Sending packet : %d bytes, type %x-%x]\n", header->length, header->command, header->subcommand));
 
     if (outputTransform) {
         uint8_t *encoded = new uint8_t[data.getSize()];
@@ -119,7 +120,7 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
     if (header->length < 8)
         return;
 
-    printf("[Received packet : %d bytes, type %x-%x]\n", header->length, header->command, header->subcommand);
+    Poco::Util::Application::instance().logger().information(Polaris::string_format("[Received packet : %d bytes, type %x-%x]\n", header->length, header->command, header->subcommand));
 
     if (header->command == 0x11 && header->subcommand == 0xB) {
         // Key exchange
@@ -128,6 +129,10 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
     }
 
     if (header->command == 0x11 && header->subcommand == 0x00) {
+        MysteryPacket mystery(5);
+        PacketData flp = FixedLengthPacket(&mystery).build();
+        sendPacket(flp);
+
         PacketData welcomeMsg(SystemMessagePacket("This has not been implemented yet.\nThank you for connecting to a PolarisServer.", 0x1).build());
         sendPacket(welcomeMsg);
     }
