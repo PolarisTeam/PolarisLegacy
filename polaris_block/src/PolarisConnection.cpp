@@ -6,8 +6,11 @@
 #include "Poco/Crypto/CipherFactory.h"
 #include <string.h>
 #include <packets/server/SystemMessagePacket.h>
+#include <w32api/asptlb.h>
 #include "PolarisConnection.h"
 #include "PolarisClient.h"
+#include "Poco/Util/Application.h"
+#include "RandomHelper.h"
 
 PolarisConnection::PolarisConnection(const StreamSocket& socket, SocketReactor& reactor):
     socket(socket),
@@ -187,7 +190,7 @@ void PolarisConnection::handleKeyExchange(uint8_t *packet) {
         }
 
     } catch (Poco::Exception &e) {
-        printf("[Key exchange error:]\n%s\n", e.displayText().c_str());
+        Poco::Util::Application::instance().logger().error(Polaris::string_format("[Key exchange error:]\n%s\n", e.displayText().c_str()));
     }
 
     if (rsa)
