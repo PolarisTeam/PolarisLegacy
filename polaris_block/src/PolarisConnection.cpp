@@ -105,7 +105,7 @@ void PolarisConnection::onReadable(AutoPtr<ReadableNotification> const &notifica
 
 void PolarisConnection::sendPacket(PacketData &data) {
     PacketHeader *header = (PacketHeader *)data.getData();
-    Poco::Util::Application::instance().logger().information(Polaris::string_format("[Sending packet : %d bytes, type %x-%x]\n", header->length, header->command, header->subcommand));
+    Poco::Util::Application::instance().logger().information(Polaris::string_format("[Sending packet : %d bytes, type %x-%x]", header->length, header->command, header->subcommand));
 
     if (outputTransform) {
         uint8_t *encoded = new uint8_t[data.getSize()];
