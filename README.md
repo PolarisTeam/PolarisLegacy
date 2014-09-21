@@ -7,6 +7,8 @@ We're a PSO2 Private server, very, very WIP.
 
 If you'd like to contribute, contact us on [IRC] (irc://irc.badnik.net/pso2) at irc.badnik.net #pso2
 
+Also check out our wiki where protocol documentation will be done: (http://pso2proxy.cyberkitsune.net/wiki/)
+
 Build Status: [![Build Status](https://travis-ci.org/cyberkitsune/PolarisServer.svg?branch=master)](https://travis-ci.org/cyberkitsune/PolarisServer)
 
 ## Building
