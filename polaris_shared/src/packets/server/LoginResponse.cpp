@@ -7,7 +7,7 @@ LoginResponsePacket::~LoginResponsePacket() {}
 
 PacketData LoginResponsePacket::build() {
     Polaris::Data::PSO2String pso2LoginErr = Polaris::Data::CreatePSO2String(loginErr, 0xB6, 0x8BA4);
-    PacketHeader header(sizeof(PacketHeader) + 4 + pso2LoginErr.dataLength + 0xC + 0x40 + 0xB0 + 0xC ,0x11, 0x1, 0x4, 0x0);
+    PacketHeader header(sizeof(PacketHeader) + 4 + 4 + pso2LoginErr.dataLength + 0xC + 0x40 + 0xB0 + 0xC ,0x11, 0x1, 0x4, 0x0);
     PacketData packetData(header.length);
     packetData.appendData(&header, sizeof(PacketHeader));
     packetData.appendBytes(0, 4); // Unknown uint8 + uint8[3]
