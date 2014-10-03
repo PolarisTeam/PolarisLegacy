@@ -135,13 +135,13 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
     packetFileWriter.close();
 
 
-    if (header->command == 0x11 && header->subcommand == 0xB) {
+    if (header->command == 0x11 && header->subcommand == 0x0B) {  // Key Exchange
         // Key exchange
         handleKeyExchange(packet);
         return;
     }
 
-    if (header->command == 0x11 && header->subcommand == 0x00) {
+    if (header->command == 0x11 && header->subcommand == 0x00) {  // Login Packet
         MysteryPacket mystery(5);
         PacketData flp = FixedLengthPacket(&mystery).build();
         sendPacket(flp);
