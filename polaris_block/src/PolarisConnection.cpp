@@ -107,6 +107,15 @@ void PolarisConnection::sendPacket(PacketData &data) {
     PacketHeader *header = (PacketHeader *)data.getData();
     Poco::Util::Application::instance().logger().information(Polaris::string_format("[Sending packet : %d bytes, type %x-%x]", header->length, header->command, header->subcommand));
 
+    // Save packet to disk
+    Poco::File folder("outgoingPackets/");
+    folder.createDirectories();
+    std::time_t theTime = std::time(NULL);;
+    Poco::FileOutputStream packetFileWriter(Polaris::string_format("outgoingPackets/%i.%x-%x.bin", theTime, header->command, header->subcommand));
+    packetFileWriter.write((char const *) data.getData(), header->length);
+    packetFileWriter.flush();
+    packetFileWriter.close();
+
     if (outputTransform) {
         uint8_t *encoded = new uint8_t[data.getSize()];
         this->outputTransform->transform(data.getData(), data.getSize(), encoded, data.getSize());
