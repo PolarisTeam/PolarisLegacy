@@ -146,7 +146,7 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
         PacketData flp = FixedLengthPacket(&mystery).build();
         sendPacket(flp);
 
-        PacketData welcomeMsg(SystemMessagePacket(u"This has not been implemented yet.\nThank you for connecting to a PolarisServer.", 0x1).build());
+        PacketData welcomeMsg(SystemMessagePacket(u"This has not been implemented yet.\nThank you for connecting to a Polaris Test Server!\nFeel free to check the progress and source code at our GitHub page!", 0x1).build());
         sendPacket(welcomeMsg);
     }
 }
