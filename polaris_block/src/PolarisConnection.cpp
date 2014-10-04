@@ -196,7 +196,7 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
         PacketHeader newState(0x10, 0x16, 0x01, 0x4, 0x0);
         PacketData newData(newState.length);
         newData.appendData(&newState, sizeof(PacketHeader));
-        char payload[8] = {0, 0, 0, 0, 0xb2, 0x3f, 0, 0};
+        char payload[8] = {0, 0, 0, 0, (char) 0xb2, 0x3f, 0, 0};
         newData.appendData(&payload, 8);
         sendPacket(newData);
         // Tell the state to move on...
