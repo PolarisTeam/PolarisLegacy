@@ -210,7 +210,7 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
         char16_t messageData[(header->length - 0x1c) / 2];
         memcpy((void *) &messageData, packet + 0x1C, header->length - 0x1C);
         std::u16string message(messageData);
-        Poco::Util::Application::instance().logger().information(Polaris::string_format("CHAT: %s", message.data()));
+        Poco::Util::Application::instance().logger().information(Polaris::string_format("CHAT: %ls", message.data()));
     }
 }
 
