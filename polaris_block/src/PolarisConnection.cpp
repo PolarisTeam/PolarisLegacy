@@ -21,7 +21,8 @@ PolarisConnection::PolarisConnection(const StreamSocket& socket, SocketReactor& 
     reactor(reactor),
     bufferPtr(new uint8_t[BUFFER_SIZE]),
     bufferPosition(0),
-    outputTransform(0), inputTransform(0)
+    outputTransform(0), inputTransform(0),
+    connTime(std::time(NULL))
 {
     this->client = new PolarisClient(this);
 
@@ -104,14 +105,14 @@ void PolarisConnection::onReadable(AutoPtr<ReadableNotification> const &notifica
 
 
 void PolarisConnection::sendPacket(PacketData &data) {
+    packetCount++;
     PacketHeader *header = (PacketHeader *)data.getData();
     Poco::Util::Application::instance().logger().information(Polaris::string_format("[Sending packet : %d bytes, type %x-%x]", header->length, header->command, header->subcommand));
 
     // Save packet to disk
-    Poco::File folder("outgoingPackets/");
+    Poco::File folder(Polaris::string_format("packets/%i/", connTime));
     folder.createDirectories();
-    std::time_t theTime = std::time(NULL);;
-    Poco::FileOutputStream packetFileWriter(Polaris::string_format("outgoingPackets/%i.%x-%x.bin", theTime, header->command, header->subcommand));
+    Poco::FileOutputStream packetFileWriter(Polaris::string_format("packets/%i/%i.%x-%x.S.bin", connTime, packetCount, header->command, header->subcommand));
     packetFileWriter.write((char const *) data.getData(), header->length);
     packetFileWriter.flush();
     packetFileWriter.close();
@@ -134,11 +135,11 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
     if (header->length < 8)
         return;
 
+    packetCount++;
     Poco::Util::Application::instance().logger().information(Polaris::string_format("[Received packet : %d bytes, type %x-%x]", header->length, header->command, header->subcommand));
-    Poco::File folder("incomingPackets/");
+    Poco::File folder(Polaris::string_format("packets/%i/", connTime));
     folder.createDirectories();
-    std::time_t theTime = std::time(NULL);;
-    Poco::FileOutputStream packetFileWriter(Polaris::string_format("incomingPackets/%i.%x-%x.bin", theTime, header->command, header->subcommand));
+    Poco::FileOutputStream packetFileWriter(Polaris::string_format("packets/%i/%i.%x-%x.C.bin", connTime, packetCount, header->command, header->subcommand));
     packetFileWriter.write((char const *) packet, header->length);
     packetFileWriter.flush();
     packetFileWriter.close();

@@ -34,6 +34,10 @@ private:
     CryptoTransform *outputTransform, *inputTransform;
 
     enum { BUFFER_SIZE = 1024 * 16 };
+
+    int packetCount = 0;
+    std::time_t connTime;
+
     int bufferPosition; // current end position of the data in the buffer
     uint8_t* bufferPtr;
 
