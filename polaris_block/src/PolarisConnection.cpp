@@ -173,6 +173,45 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
         sendPacket(yoloPacket);
 
     }
+
+    if(header->command == 0x11 && header->subcommand == 0x02) {  // Character list request
+
+        //TODO: This handling is only used until we figure out character data from scratch.
+        FILE * binfile = fopen("charinfo.bin", "rb"); // Provide any 11-3 packet from a SEGA server.
+        fseek(binfile, 0, SEEK_END);
+        long size = ftell(binfile);
+        fseek(binfile, 0, SEEK_SET);
+        char * theFile = new char[size];
+        fread(theFile, 1, size, binfile);
+        fclose(binfile);
+
+        PacketData data(size);
+        data.appendData(theFile, size);
+        sendPacket(data);
+        delete[] theFile;
+    }
+
+    if(header->command == 0x11 && header->subcommand == 0x04) {  // Character selected...
+        // Load in the loading screen state
+        PacketHeader newState(0x10, 0x16, 0x01, 0x4, 0x0);
+        PacketData newData(newState.length);
+        newData.appendData(&newState, sizeof(PacketHeader));
+        char payload[8] = {0, 0, 0, 0, 0xb2, 0x3f, 0, 0};
+        newData.appendData(&payload, 8);
+        sendPacket(newData);
+        // Tell the state to move on...
+        PacketData moveOver(8);
+        PacketHeader moveOverHeader(0x8, 0x3, 0x4, 0x0, 0x0);
+        moveOver.appendData(&moveOverHeader, sizeof(moveOverHeader));
+        sendPacket(moveOver);
+    }
+
+    if(header->command == 0x7 && header->subcommand == 0x00) {
+        char16_t messageData[(header->length - 0x1c) / 2];
+        memcpy((void *) &messageData, packet + 0x1C, header->length - 0x1C);
+        std::u16string message(messageData);
+        Poco::Util::Application::instance().logger().information(Polaris::string_format("CHAT: %s", message.data()));
+    }
 }
 
 
