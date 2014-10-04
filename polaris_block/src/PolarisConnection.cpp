@@ -48,6 +48,7 @@ PolarisConnection::~PolarisConnection() {
 }
 
 void PolarisConnection::onShutdown(AutoPtr<ShutdownNotification> const &notification) {
+    Poco::Util::Application::instance().logger().information("Lost connection to client.");
     delete this;
 }
 
