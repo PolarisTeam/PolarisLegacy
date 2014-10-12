@@ -45,4 +45,6 @@ private:
 
     void handleKeyExchange(uint8_t *packet);
 
+    void playbackPackets(std::string folder, int startPkt, int endPkt);
+
 };

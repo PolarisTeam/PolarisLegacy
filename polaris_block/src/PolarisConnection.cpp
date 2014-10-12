@@ -4,6 +4,7 @@
 #include "Poco/Crypto/Cipher.h"
 #include "Poco/Crypto/CipherKey.h"
 #include "Poco/Crypto/CipherFactory.h"
+#include "Poco/Glob.h"
 #include <string.h>
 #include <packets/FixedLengthPacket.h>
 #include <fstream>
@@ -280,3 +281,44 @@ void PolarisConnection::handleKeyExchange(uint8_t *packet) {
     delete dec;
 }
 
+void PolarisConnection::playbackPackets(std::string folder, int startPkt, int endPkt) {
+    Poco::File pktFolder(folder);
+    if(!pktFolder.exists()) {
+        Poco::Util::Application::instance().logger().error(Polaris::string_format("Unable to find packet folder %s for packet playback. Aborting.", folder));
+        return;
+    }
+
+    if(startPkt > endPkt) {
+        Poco::Util::Application::instance().logger().error("startPkt > endPkt?!");
+        return;
+    }
+
+    for(int i = startPkt; i < endPkt; i++) {
+        std::set<std::string> files;
+        Poco::Glob::glob(Polaris::string_format("%s/%i.*.bin", folder, i), files, 0);
+
+        if(files.size() > 0) {
+            std::set<std::string>::iterator setBegin = files.begin();
+            std::string packetFileName = *setBegin;
+
+            //FIXME: Lol stdio, we should likely use poco shit for this.
+            FILE * packetFile = fopen(packetFileName.c_str(), "rb"); // DAT c_str THO
+            fseek(packetFile, 0, SEEK_END);
+            long packetFileSize = ftell(packetFile);
+            fseek(packetFile, 0, SEEK_SET);
+
+            char * packetFileBuffer = new char[packetFileSize];
+            fread(packetFileBuffer, 1, (size_t) packetFileSize, packetFile);
+            fclose(packetFile);
+
+            PacketData packetData((size_t) packetFileSize);
+            packetData.appendData(packetFileBuffer, (size_t) packetFileSize);
+            sendPacket(packetData);
+
+            delete[] packetFileBuffer;
+
+        }
+
+    }
+
+}
