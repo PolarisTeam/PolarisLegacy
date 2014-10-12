@@ -284,7 +284,7 @@ void PolarisConnection::handleKeyExchange(uint8_t *packet) {
 void PolarisConnection::playbackPackets(std::string folder, int startPkt, int endPkt) {
     Poco::File pktFolder(folder);
     if(!pktFolder.exists()) {
-        Poco::Util::Application::instance().logger().error(Polaris::string_format("Unable to find packet folder %s for packet playback. Aborting.", folder));
+        Poco::Util::Application::instance().logger().error(Polaris::string_format("Unable to find packet folder %s for packet playback. Aborting.", folder.c_str()));
         return;
     }
 
@@ -295,7 +295,7 @@ void PolarisConnection::playbackPackets(std::string folder, int startPkt, int en
 
     for(int i = startPkt; i < endPkt; i++) {
         std::set<std::string> files;
-        Poco::Glob::glob(Polaris::string_format("%s/%i.*.bin", folder, i), files, 0);
+        Poco::Glob::glob(Polaris::string_format("%s/%i.*.bin", folder.c_str(), i), files, 0);
 
         if(files.size() > 0) {
             std::set<std::string>::iterator setBegin = files.begin();
