@@ -193,6 +193,7 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
     }
 
     if(header->command == 0x11 && header->subcommand == 0x04) {  // Character selected...
+
         // Load in the loading screen state
         PacketHeader newState(0x10, 0x16, 0x01, 0x4, 0x0);
         PacketData newData(newState.length);
@@ -207,11 +208,28 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
         sendPacket(moveOver);
     }
 
+    if(header->command == 0x3 && header->subcommand == 0x3) {
+        playbackPackets("sampleset", 70, 70, 0);
+        playbackPackets("sampleset", 103, 104, 1);
+        PacketData unlockControls(0x8);
+        PacketHeader unlockHeader(0x8, 0x3, 0x2b, 0x0, 0x0);
+        unlockControls.appendData(&unlockHeader, 0x8);
+        sendPacket(unlockControls);
+    }
+
+    if(header->command == 0x3 && header->subcommand == 0x10) {
+        PacketHeader doItMaybe(0x8, 0x3, 0x23, 0x0, 0x0);
+        PacketData doItPacket(0x8);
+        doItPacket.appendData(&doItMaybe, 0x8);
+        sendPacket(doItPacket);
+    }
+
     if(header->command == 0x7 && header->subcommand == 0x00) {
         char16_t messageData[(header->length - 0x1c) / 2];
         memcpy((void *) &messageData, packet + 0x1C, header->length - 0x1C);
         std::u16string message(messageData);
         Poco::Util::Application::instance().logger().information(Polaris::string_format("CHAT: %ls", message.data()));
+        playbackPackets("sampleset", 794, 1177, 1);
     }
 }
 
@@ -281,7 +299,7 @@ void PolarisConnection::handleKeyExchange(uint8_t *packet) {
     delete dec;
 }
 
-void PolarisConnection::playbackPackets(std::string folder, int startPkt, int endPkt) {
+void PolarisConnection::playbackPackets(std::string folder, int startPkt, int endPkt, int sleeptime) {
     Poco::File pktFolder(folder);
     if(!pktFolder.exists()) {
         Poco::Util::Application::instance().logger().error(Polaris::string_format("Unable to find packet folder %s for packet playback. Aborting.", folder.c_str()));
@@ -293,7 +311,7 @@ void PolarisConnection::playbackPackets(std::string folder, int startPkt, int en
         return;
     }
 
-    for(int i = startPkt; i < endPkt; i++) {
+    for(int i = startPkt; i <= endPkt; i++) {
         std::set<std::string> files;
         Poco::Glob::glob(Polaris::string_format("%s/%i.*.bin", folder.c_str(), i), files, 0);
 
@@ -313,6 +331,8 @@ void PolarisConnection::playbackPackets(std::string folder, int startPkt, int en
 
             PacketData packetData((size_t) packetFileSize);
             packetData.appendData(packetFileBuffer, (size_t) packetFileSize);
+            Poco::Util::Application::instance().logger().information(Polaris::string_format("Sending packet file %s...", packetFileName.c_str()));
+            sleep(sleeptime);
             sendPacket(packetData);
 
             delete[] packetFileBuffer;

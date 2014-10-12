@@ -8,6 +8,7 @@ struct MysteryPacket{
     }
 };
 
+
 class FixedLengthPacket : public Packet
 {
 public:
