@@ -75,5 +75,9 @@ struct CharacterJobParameter {
     uint32_t unknown_68;
     uint16_t unknown_6C;
     uint16_t unknown_6E;
+    #ifdef __MSVC_VER
+    unsigned __m128 unknown_70;
+    #else
     unsigned __int128 unknown_70;
+    #endif
 };
