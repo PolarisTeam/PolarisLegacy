@@ -209,12 +209,23 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
     }
 
     if(header->command == 0x3 && header->subcommand == 0x3) {
-        playbackPackets("sampleset", 70, 70, 0);
-        playbackPackets("sampleset", 103, 104, 1);
+        playbackPackets("sampleset", 70, 70, 0); // TODO: Set Area
+
+        PacketData setPlayerID(0x14);
+        PacketHeader setPlayerIDHeader(0x14, 0x6, 0x0, 0x0, 0x0);
+        setPlayerID.appendData(&setPlayerIDHeader, sizeof(PacketHeader));
+        setPlayerID.appendData(&(this->client->player_id), sizeof(uint32_t));
+        setPlayerID.appendBytes(0, 4);
+        setPlayerID.appendBytes(4, 1);
+        setPlayerID.appendBytes(0, 3);
+        sendPacket(setPlayerID); // Set player ID.
+
+        playbackPackets("sampleset", 103, 104, 1); // TODO: Set player data
+
         PacketData unlockControls(0x8);
         PacketHeader unlockHeader(0x8, 0x3, 0x2b, 0x0, 0x0);
         unlockControls.appendData(&unlockHeader, 0x8);
-        sendPacket(unlockControls);
+        sendPacket(unlockControls); // Unlock player movement.
     }
 
     if(header->command == 0x3 && header->subcommand == 0x10) {

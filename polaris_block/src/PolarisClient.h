@@ -11,6 +11,7 @@ public:
 
 private:
     PolarisConnection* theConnection;
+public: // For now
     std::string sega_id;
     std::u16string current_character_name;
     uint32_t player_id;
