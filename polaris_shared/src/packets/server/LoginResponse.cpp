@@ -13,7 +13,9 @@ PacketData LoginResponsePacket::build() {
     packetData.appendBytes(0, 4); // Unknown uint8 + uint8[3]
     packetData.appendData(&pso2LoginErr.magicValue, 4);
     packetData.appendData(pso2LoginErr.utf16string.data(), pso2LoginErr.dataLength);
-    packetData.appendBytes(0, 0xC); // Unknown uint8[0xC]
+    uint32_t tempId = 1234567890;
+    packetData.appendData(&tempId, 0x4);
+    packetData.appendBytes(0, 0x8); // Unknown uint8[0xC]
     packetData.appendData(blockName.data(), blockName.size() * 2);
     if (blockName.size() * 2 < 0x40) { //TODO Verify block name isn't too big
         packetData.appendBytes(0, 0x40 - (blockName.size() * 2)); // Because fixed length
