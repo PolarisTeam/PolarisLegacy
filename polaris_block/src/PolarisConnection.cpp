@@ -253,9 +253,9 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
 
     if(header->command == 0x11 && header->subcommand == 0x54) { // Character creator request 2
         PacketHeader yay2(0xC, 0x11, 0x55, 0x0, 0x0);
-        PacketData yayPkt2(yay.length);
-        yayPkt2.appendData(&yay, sizeof(yay));
-        yayPkt2.appendBytes(0, 0xC - sizeof(yay));
+        PacketData yayPkt2(yay2.length);
+        yayPkt2.appendData(&yay2, sizeof(yay2));
+        yayPkt2.appendBytes(0, 0xC - sizeof(yay2));
         sendPacket(yayPkt2);
     }
 }
