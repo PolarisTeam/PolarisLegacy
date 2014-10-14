@@ -3,13 +3,15 @@
 #include <vector>
 #include "PacketData.h"
 
-struct PacketHeader {
+struct PacketHeader
+{
     uint32_t length;
     uint8_t command;
     uint8_t subcommand;
     uint8_t flag1;
     uint8_t flag2;
-    PacketHeader(size_t length, uint8_t command, uint8_t subcommand, uint8_t flag1, uint8_t flag2) {
+    PacketHeader(size_t length, uint8_t command, uint8_t subcommand, uint8_t flag1, uint8_t flag2)
+    {
         this->length = length;
         this->command = command;
         this->subcommand = subcommand;
@@ -19,7 +21,8 @@ struct PacketHeader {
 };
 
 
-class Packet {
+class Packet
+{
 public:
     Packet() {}
     virtual ~Packet() {}

@@ -4,8 +4,11 @@
 #include <cstdarg>
 
 #include "RandomHelper.h"
-namespace Polaris {
-    std::string string_format(const char *fmt, ...) {
+
+namespace Polaris
+{
+    std::string string_format(const char *fmt, ...)
+    {
         char *ret;
         va_list ap;
 

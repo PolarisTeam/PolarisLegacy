@@ -11,7 +11,8 @@ struct PacketHeader;
 * Also, useful type data could be put here (PSO2 Strings maybe?)
 * It currently needs to be done better
 */
-class PacketData {
+class PacketData 
+{
 public:
     PacketData();
     PacketData(size_t dataSize);
