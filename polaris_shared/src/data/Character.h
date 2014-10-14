@@ -41,7 +41,7 @@ struct CharacterJobParameter {
     char unknown_1;
     char unknown_2;
     char unknown_3;
-    CharJobPramEntry entries[12]; // I guess?
+    CharJobParamEntry entries[12]; // I guess?
     /*uint32_t unknown_4;  // Entry 1
     uint16_t unknown_8;
     uint16_t unknown_A;
