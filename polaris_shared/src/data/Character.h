@@ -48,18 +48,18 @@ struct CharacterJobParameter {
     uint16_t fighterLv;
     uint16_t unknown_22;
     uint32_t fighterExp; // Entry 5
-    uint16_t unknown_28;
+    uint16_t gunnerLv;
     uint16_t unknown_2A;
-    uint32_t unknown_2C; // Entry 6
-    uint16_t unknown_30;
+    uint32_t gunnerExp; // Entry 6
+    uint16_t techerLv;
     uint16_t unknown_32;
-    uint32_t unknown_34; // Entry 7
+    uint32_t techerExp; // Entry 7
     uint16_t braverLv;
     uint16_t unknown_3A;
     uint32_t braverExp; // Entry 8
-    uint16_t unknown_40;
+    uint16_t bouncerLv;
     uint16_t unknown_42;
-    uint32_t unknown_44; // Entry 9
+    uint32_t bouncerExp; // Entry 9
     uint16_t unknown_48;
     uint16_t unknown_4A;
     uint32_t unknown_4C; // Entry 10
