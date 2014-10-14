@@ -13,7 +13,7 @@ struct CharacterSpawnPacket {
     PacketHeader header;
     CharacterHeaderMaybe charHeaderMaybe;
     MysteryCharacter14 unknown_14;
-    char unk_22[34];
+    char asciiString[34]; //\0\0Character in ASCII (Rest is all zeros)
     uint16_t unknown_44;
     char unk_46[6];
     uint32_t unknown_4c;
@@ -31,15 +31,17 @@ struct CharacterSpawnPacket {
     uint16_t currentTitle[32];
     char unk_204[2];
     char unknown_206;
+    char unknown_207[101];
 };
 
 struct CharacterCreatePacket { // 11-5
     PacketHeader header;
-    char unknown_8[20];
+    char unknown_8[20]; // Usually zeros so far?
     uint16_t name[16];
     char padding[4];
     CharacterLooksParameter looks;
     CharacterJobParameter jobs;
+    char unknown_footer[68];
 };
 
 class FixedLengthPacket : public Packet
