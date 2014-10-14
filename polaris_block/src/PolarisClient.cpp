@@ -4,16 +4,19 @@
 
 std::list<PolarisClient *> clients;
 
-PolarisClient::PolarisClient(PolarisConnection* connection) : theConnection(connection) {
+PolarisClient::PolarisClient(PolarisConnection* connection) : theConnection(connection)
+{
     lastPlayerId++;
     this->player_id = lastPlayerId;
     clients.push_back(this);
 }
 
-PolarisClient::~PolarisClient() {
+PolarisClient::~PolarisClient()
+{
     clients.remove(this);
 }
 
-PolarisConnection &PolarisClient::getConnection() {
+PolarisConnection &PolarisClient::getConnection()
+{
     return *this->theConnection;
 }
