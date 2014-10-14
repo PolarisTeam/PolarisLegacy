@@ -4,6 +4,7 @@ CyberKitsune's thing we need to do list
 * Redesign packet handler system to not just be a giant function in the connection class. - (Nobody)
 * Analyze samples of 8-4 to map out more character data. - (CK)
 * Mess around and see what needs to be done to get to character creation. - (CK)
+* See what a client's FIRST login (aka no keyconfig) needs to acually look like. - (CK/SonicFreak94)
 * Allow two different clients to see eachother and see eachother move. - (CK)
 * Fix MSVC build / Argue why we need an MSVC build. - (Anybody)
 * Start creating SQLite DB code and parse logins. - (Nobody)
