@@ -1,0 +1,8 @@
+CyberKitsune's thing we need to do list
+(In order of difficulty, starting with most difficult?) * Task - (Claimed by)
+* Work on coming up with a decent server architecture design as the current one feels bad. - (Nobody)
+* Redesign packet handler system to not just be a giant function in the connection class. - (Nobody)
+* Analyze samples of 8-4 to map out more character data. - (CK)
+* Mess around and see what needs to be done to get to character creation. - (CK)
+* Start creating SQLite DB code and parse logins. - (Nobody)
+* Buy CK pizza and cake. - (Nobody)
