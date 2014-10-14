@@ -22,8 +22,7 @@ struct CharacterSpawnPacket {
     uint32_t unknown_5C;
     uint32_t playerIdCopy;
     char unk_64[4];
-    char voiceParam_unknown4;
-    char unk_69[3];
+    uint32_t voiceParam_unknown4;
     uint32_t voiceParam_unknown8;
     uint16_t name[16]; //TODO: Find a 16-bit consistant wchar_t.
     char unk_90[4];
