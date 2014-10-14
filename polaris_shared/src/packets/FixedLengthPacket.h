@@ -29,7 +29,7 @@ struct CharacterSpawnPacket {
     char unk_90[4];
     CharacterLooksParameter looksParam;
     CharacterJobParameter jobsParam;
-    uint32_t unknown_1C4[16];
+    uint16_t currentTitle[32];
     char unk_204[2];
     char unknown_206;
 };
