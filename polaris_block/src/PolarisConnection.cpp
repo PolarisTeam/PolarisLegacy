@@ -242,6 +242,22 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
         Poco::Util::Application::instance().logger().information(Polaris::string_format("CHAT: %ls", message.data()));
         playbackPackets("sampleset", 794, 1177, 1);
     }
+
+    if(header->command == 0x11 && header->subcommand == 0x41) { // Character creator request
+        PacketHeader yay(0x18, 0x11, 0x42, 0x0, 0x0);
+        PacketData yayPkt(yay.length);
+        yayPkt.appendData(&yay, sizeof(yay));
+        yayPkt.appendBytes(0, 0x18 - sizeof(yay));
+        sendPacket(yayPkt);
+    }
+
+    if(header->command == 0x11 && header->subcommand == 0x54) { // Character creator request 2
+        PacketHeader yay2(0xC, 0x11, 0x55, 0x0, 0x0);
+        PacketData yayPkt2(yay.length);
+        yayPkt2.appendData(&yay, sizeof(yay));
+        yayPkt2.appendBytes(0, 0xC - sizeof(yay));
+        sendPacket(yayPkt2);
+    }
 }
 
 
