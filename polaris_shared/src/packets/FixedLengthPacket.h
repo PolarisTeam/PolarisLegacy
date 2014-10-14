@@ -34,6 +34,15 @@ struct CharacterSpawnPacket {
     char unknown_206;
 };
 
+struct CharacterCreatePacket { // 11-5
+    PacketHeader header;
+    char unknown_8[20];
+    uint16_t name[16];
+    char padding[4];
+    CharacterLooksParameter looks;
+    CharacterJobParameter jobs;
+};
+
 class FixedLengthPacket : public Packet
 {
 public:
