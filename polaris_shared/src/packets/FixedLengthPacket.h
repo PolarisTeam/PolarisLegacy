@@ -20,16 +20,18 @@ struct MysteryPacket
 struct CharacterSpawnPacket
 {
     PacketHeader header; 					// 8 bytes
-    CharacterHeaderMaybe charHeaderMaybe;	// 12 bytes
+    PlayerHeader charHeaderMaybe;	// 12 bytes
     MysteryCharacter14 spawnPosition;		// 14 bytes
     char asciiString[34]; 					// 34 bytes
     uint16_t unknown_44;					// 2 bytes
 	char unk_48[2];							// 6 bytes
 	uint32_t unknown_4A;
     uint32_t unknown_4c;					// 4 bytes
-    char unk_50[8];							// 8 bytes
+	uint32_t unknown_50;
+    char unk_54[4];							// 4 bytes
     uint32_t unknown_58;					// 4 bytes
-    uint32_t unknown_5C;					// 4 bytes
+    uint16_t unknown_5C;					// 4 bytes
+	uint16_t unknown_5E;
     uint32_t playerIdCopy;					// 4 bytes
     char unk_64[4];							// 4 bytes and it's a char array ugggghhhhh
     uint32_t voiceParam_unknown4;			// 4 bytes

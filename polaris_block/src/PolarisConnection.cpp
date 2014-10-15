@@ -10,6 +10,7 @@
 #include <fstream>
 #include <ctime>
 #include <packets/server/LoginResponse.h>
+#include <packets/server/ChatPacket.h>
 #include "PolarisConnection.h"
 #include "PolarisClient.h"
 #include "Poco/Util/Application.h"
@@ -253,7 +254,12 @@ void PolarisConnection::handlePacket(uint8_t *packet)
 		csp.spawnPosition.unknown_7 = Polaris::bswap_uint16(0xBBD1);
 		csp.spawnPosition.unknown_C = Polaris::bswap_uint16(0xB5D6);
 		csp.unknown_44 = 1;
-		csp.unknown_4A = 1337;
+		csp.unknown_4A = 602;
+		csp.unknown_4c = 1;
+		csp.unknown_50 = 53; // For some reason
+		csp.unknown_58 = 47;
+		csp.unknown_5C = 559;
+		csp.unknown_5E = 306;
 		PolarisCharacter curChar = PolarisTemp::lastCharacter;
 		Polaris::copy_array(curChar.name, csp.name, 16);
 		Polaris::copy_array((char*)"\0\0Character", csp.asciiString, 11);
@@ -283,10 +289,18 @@ void PolarisConnection::handlePacket(uint8_t *packet)
 
     if (header->command == 0x7 && header->subcommand == 0x00)
     {
-        char16_t messageData[(header->length - 0x1c) / 2];
-        memcpy((void *) &messageData, packet + 0x1C, header->length - 0x1C);
-        std::u16string message(messageData);
-        Poco::Util::Application::instance().logger().information(Polaris::string_format("CHAT: %ls", message.data()));
+		PlayerHeader* pHeader = (PlayerHeader *) (packet + 8);
+		if(pHeader->playerId == 0)
+		{
+			char16_t messageData[(header->length - 0x1c) / 2];
+			memcpy((void *) &messageData, packet + 0x1C, header->length - 0x1C);
+			std::u16string message(messageData);
+			Poco::Util::Application::instance().logger().information(Polaris::string_format("CHAT:<%ls> %ls", u"", message.data()));
+			ChatPacket chatPkt(this->client->player_id, message, 0);
+			PacketData chatPktData = chatPkt.build();
+			sendPacket(chatPktData);
+		}
+
     }
 
     // Character creator request
