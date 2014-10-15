@@ -172,7 +172,7 @@ void PolarisConnection::handlePacket(uint8_t *packet)
 
         //PacketData welcomeMsg(SystemMessagePacket(u"This has not been implemented yet.\nThank you for connecting to a PolarisServer.", 0x1).build());
         //sendPacket(welcomeMsg);
-        PacketData lResponse(LoginResponsePacket(u"", u"B001-DarkFox").build());
+        PacketData lResponse(LoginResponsePacket(u"", u"B001-DarkFox", 0).build());
         sendPacket(lResponse);
 
         // YOLOSWAG
