@@ -37,7 +37,8 @@ PolarisConnection::PolarisConnection(const StreamSocket& socket, SocketReactor& 
     sendPacket(helloData);
 }
 
-PolarisConnection::~PolarisConnection() {
+PolarisConnection::~PolarisConnection()
+{
     delete this->client;
     delete[] this->bufferPtr;
 
@@ -48,12 +49,14 @@ PolarisConnection::~PolarisConnection() {
     delete inputTransform;
 }
 
-void PolarisConnection::onShutdown(AutoPtr<ShutdownNotification> const &notification) {
+void PolarisConnection::onShutdown(AutoPtr<ShutdownNotification> const &notification)
+{
     Poco::Util::Application::instance().logger().information("Lost connection to client.");
     delete this;
 }
 
-void PolarisConnection::onReadable(AutoPtr<ReadableNotification> const &notification) {
+void PolarisConnection::onReadable(AutoPtr<ReadableNotification> const &notification)
+{
     /*
     1. Check if buffer already has data, if so deal with that
     2. No data, new packet, read header
@@ -106,7 +109,8 @@ void PolarisConnection::onReadable(AutoPtr<ReadableNotification> const &notifica
 }
 
 
-void PolarisConnection::sendPacket(PacketData &data) {
+void PolarisConnection::sendPacket(PacketData &data)
+{
     packetCount++;
     PacketHeader *header = (PacketHeader *)data.getData();
     Poco::Util::Application::instance().logger().information(Polaris::string_format("[Sending packet : %d bytes, type %x-%x]", header->length, header->command, header->subcommand));
@@ -119,18 +123,22 @@ void PolarisConnection::sendPacket(PacketData &data) {
     packetFileWriter.flush();
     packetFileWriter.close();
 
-    if (outputTransform) {
+    if (outputTransform)
+    {
         uint8_t *encoded = new uint8_t[data.getSize()];
         this->outputTransform->transform(data.getData(), data.getSize(), encoded, data.getSize());
         this->socket.sendBytes(encoded, data.getSize());
         delete[] encoded;
-    } else {
+    }
+    else
+    {
         this->socket.sendBytes(data.getData(), data.getSize());
     }
 }
 
 
-void PolarisConnection::handlePacket(uint8_t *packet) {
+void PolarisConnection::handlePacket(uint8_t *packet)
+{
     PacketHeader *header = (PacketHeader *)packet;
 
     // Incomplete (corrupted/malicious?) packet
@@ -146,14 +154,17 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
     packetFileWriter.flush();
     packetFileWriter.close();
 
-
-    if (header->command == 0x11 && header->subcommand == 0x0B) {  // Key Exchange
+    // Key Exchange
+    if (header->command == 0x11 && header->subcommand == 0x0B)
+    {
         // Key exchange
         handleKeyExchange(packet);
         return;
     }
 
-    if (header->command == 0x11 && header->subcommand == 0x00) {  // Login Packet
+    // Login Packet
+    if (header->command == 0x11 && header->subcommand == 0x00)
+    {
         MysteryPacket mystery(5);
         PacketData flp = FixedLengthPacket(&mystery).build();
         sendPacket(flp);
@@ -172,12 +183,12 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
         yoloPacket.appendData(&swag, 4);
         yoloPacket.appendData(yolo.data(), yolo.size() + 1);
         sendPacket(yoloPacket);
-
     }
 
-    if(header->command == 0x11 && header->subcommand == 0x02) {  // Character list request
-
-        //TODO: This handling is only used until we figure out character data from scratch.
+    // Character list request
+    if (header->command == 0x11 && header->subcommand == 0x02)
+    {
+        // TODO: This handling is only used until we figure out character data from scratch.
         FILE * binfile = fopen("charinfo.bin", "rb"); // Provide any 11-3 packet from a SEGA server.
         fseek(binfile, 0, SEEK_END);
         long size = ftell(binfile);
@@ -192,8 +203,9 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
         delete[] theFile;
     }
 
-    if(header->command == 0x11 && header->subcommand == 0x04) {  // Character selected...
-
+    // Character selected...
+    if (header->command == 0x11 && header->subcommand == 0x04)
+    {
         // Load in the loading screen state
         PacketHeader newState(0x10, 0x16, 0x01, 0x4, 0x0);
         PacketData newData(newState.length);
@@ -201,6 +213,7 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
         char payload[8] = {0, 0, 0, 0, (char) 0xb2, 0x3f, 0, 0};
         newData.appendData(&payload, 8);
         sendPacket(newData);
+        
         // Tell the state to move on...
         PacketData moveOver(8);
         PacketHeader moveOverHeader(0x8, 0x3, 0x4, 0x0, 0x0);
@@ -208,7 +221,8 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
         sendPacket(moveOver);
     }
 
-    if(header->command == 0x3 && header->subcommand == 0x3) {
+    if (header->command == 0x3 && header->subcommand == 0x3)
+    {
         playbackPackets("sampleset", 70, 70, 0); // TODO: Set Area
 
         PacketData setPlayerID(0x14);
@@ -228,14 +242,16 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
         sendPacket(unlockControls); // Unlock player movement.
     }
 
-    if(header->command == 0x3 && header->subcommand == 0x10) {
+    if (header->command == 0x3 && header->subcommand == 0x10)
+    {
         PacketHeader doItMaybe(0x8, 0x3, 0x23, 0x0, 0x0);
         PacketData doItPacket(0x8);
         doItPacket.appendData(&doItMaybe, 0x8);
         sendPacket(doItPacket);
     }
 
-    if(header->command == 0x7 && header->subcommand == 0x00) {
+    if (header->command == 0x7 && header->subcommand == 0x00)
+    {
         char16_t messageData[(header->length - 0x1c) / 2];
         memcpy((void *) &messageData, packet + 0x1C, header->length - 0x1C);
         std::u16string message(messageData);
@@ -243,7 +259,9 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
         playbackPackets("sampleset", 794, 1177, 1);
     }
 
-    if(header->command == 0x11 && header->subcommand == 0x41) { // Character creator request
+    // Character creator request
+    if (header->command == 0x11 && header->subcommand == 0x41)
+    {
         PacketHeader yay(0x18, 0x11, 0x42, 0x0, 0x0);
         PacketData yayPkt(yay.length);
         yayPkt.appendData(&yay, sizeof(yay));
@@ -251,7 +269,9 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
         sendPacket(yayPkt);
     }
 
-    if(header->command == 0x11 && header->subcommand == 0x54) { // Character creator request 2
+    // Character creator request 2
+    if (header->command == 0x11 && header->subcommand == 0x54)
+    {
         PacketHeader yay2(0xC, 0x11, 0x55, 0x0, 0x0);
         PacketData yayPkt2(yay2.length);
         yayPkt2.appendData(&yay2, sizeof(yay2));
@@ -260,8 +280,8 @@ void PolarisConnection::handlePacket(uint8_t *packet) {
     }
 }
 
-
-void PolarisConnection::handleKeyExchange(uint8_t *packet) {
+void PolarisConnection::handleKeyExchange(uint8_t *packet)
+{
     PacketHeader *header = (PacketHeader *)packet;
 
     if (header->length < 0x88)
@@ -271,7 +291,8 @@ void PolarisConnection::handleKeyExchange(uint8_t *packet) {
     Cipher *rsa = 0;
     CryptoTransform *dec = 0;
 
-    try {
+    try
+    {
         RSAKey rsaKey("", "privateKey.pem");
         rsa = CipherFactory::defaultFactory().createCipher(rsaKey);
         dec = rsa->createDecryptor();
@@ -284,7 +305,8 @@ void PolarisConnection::handleKeyExchange(uint8_t *packet) {
         int processed = dec->transform(input, sizeof(input), output, sizeof(output));
         processed += dec->finalize(output, sizeof(output) - processed);
 
-        if (processed >= 0x20) {
+        if (processed >= 0x20)
+        {
             // Valid key exchange
             // First 16 bytes: Challenge data, encrypted with RC4 key
             // Following 16 bytes: RC4 key
@@ -316,33 +338,41 @@ void PolarisConnection::handleKeyExchange(uint8_t *packet) {
             sendPacket(responsePacket);
         }
 
-    } catch (Poco::Exception &e) {
+    }
+    catch (Poco::Exception &e)
+    {
         Poco::Util::Application::instance().logger().error(Polaris::string_format("[Key exchange error: %s]", e.displayText().c_str()));
         socket.close();
     }
 
     if (rsa)
         rsa->release();
+    
     delete dec;
 }
 
-void PolarisConnection::playbackPackets(std::string folder, int startPkt, int endPkt, int sleeptime) {
+void PolarisConnection::playbackPackets(std::string folder, int startPkt, int endPkt, int sleeptime)
+{
     Poco::File pktFolder(folder);
-    if(!pktFolder.exists()) {
+    if (!pktFolder.exists())
+    {
         Poco::Util::Application::instance().logger().error(Polaris::string_format("Unable to find packet folder %s for packet playback. Aborting.", folder.c_str()));
         return;
     }
 
-    if(startPkt > endPkt) {
+    if (startPkt > endPkt)
+    {
         Poco::Util::Application::instance().logger().error("startPkt > endPkt?!");
         return;
     }
 
-    for(int i = startPkt; i <= endPkt; i++) {
+    for (int i = startPkt; i <= endPkt; i++)
+    {
         std::set<std::string> files;
         Poco::Glob::glob(Polaris::string_format("%s/%i.*.bin", folder.c_str(), i), files, 0);
 
-        if(files.size() > 0) {
+        if (files.size() > 0)
+        {
             std::set<std::string>::iterator setBegin = files.begin();
             std::string packetFileName = *setBegin;
 
@@ -363,9 +393,6 @@ void PolarisConnection::playbackPackets(std::string folder, int startPkt, int en
             sendPacket(packetData);
 
             delete[] packetFileBuffer;
-
         }
-
     }
-
 }

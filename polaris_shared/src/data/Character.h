@@ -1,21 +1,25 @@
-struct CharBlob1 {
+struct CharBlob1
+{
     // 0x1AC Big
     uint16_t nameBuffer[16];
     uint8_t padding[4] = {0, 0, 0, 0};
 };
 
-struct CharBlob2 {
+struct CharBlob2
+{
     uint8_t unknown[0x230];
 };
 
-struct CharacterHeaderMaybe {
+struct CharacterHeaderMaybe
+{
     uint32_t playerId;
     uint32_t unknown_4;
     uint16_t unknown_8;
     uint16_t unknown_A;
 };
 
-struct MysteryCharacter14 {
+struct MysteryCharacter14
+{
     uint16_t unknown_0;
     uint16_t unknown_2;
     uint16_t unknown_4;
@@ -25,12 +29,14 @@ struct MysteryCharacter14 {
     uint16_t unknown_C;
 };
 
-struct CharacterLooksParameter {
+struct CharacterLooksParameter
+{
     char unknown_data[175];
     char unknown_AF;
 };
 
-struct CharacterJobParameter {
+struct CharacterJobParameter
+{
     char unknown_0;
     char unknown_1;
     char unknown_2;
@@ -75,7 +81,7 @@ struct CharacterJobParameter {
     uint32_t unknown_68;
     uint16_t unknown_6C;
     uint16_t unknown_6E;
-    #ifdef __MSC_VER
+    #ifdef __MSC_VER // THANKS MSVC
     unsigned __m128 unknown_70;
     #else
     unsigned __int128 unknown_70;
