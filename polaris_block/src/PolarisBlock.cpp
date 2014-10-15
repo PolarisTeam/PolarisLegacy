@@ -10,11 +10,13 @@ using Poco::Net::SocketReactor;
 using Poco::Net::SocketAcceptor;
 using Poco::Thread;
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
     return PolarisBlockApp().run(argc, argv);
 }
 
-int PolarisBlockApp::main(const std::vector<std::string> &args) {
+int PolarisBlockApp::main(const std::vector<std::string> &args)
+{
     lastPlayerId = 0;
     // Create + Bind socket
     ServerSocket blockSocket(12201); // TODO Config file / Argument / Whatever
@@ -33,8 +35,6 @@ int PolarisBlockApp::main(const std::vector<std::string> &args) {
 
     reactor.stop();
     thread.join();
-
-
 
     return Application::EXIT_OK;
 }

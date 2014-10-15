@@ -1,9 +1,12 @@
 #include <string>
 #include <stdint.h>
 
-namespace Polaris {
-    namespace Data {
-        struct PSO2String {
+namespace Polaris
+{
+    namespace Data
+    {
+        struct PSO2String
+        {
             uint32_t magicValue;
             std::u16string utf16string;
             uint32_t dataLength;

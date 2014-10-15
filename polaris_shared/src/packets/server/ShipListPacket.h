@@ -4,11 +4,20 @@
 #include <vector>
 #include <string>
 
-enum ShipStatus { SHIP_UNKNOWN = 0, SHIP_ONLINE = 1, SHIP_BUSY = 2, SHIP_FULL = 3, SHIP_OFFLINE = 4};
+enum ShipStatus
+{
+    SHIP_UNKNOWN = 0,
+    SHIP_ONLINE = 1,
+    SHIP_BUSY = 2,
+    SHIP_FULL = 3,
+    SHIP_OFFLINE = 4
+};
 
-class ShipListPacket : public Packet {
+class ShipListPacket : public Packet
+{
 public:
-    struct ShipEntry {
+    struct ShipEntry
+    {
         uint32_t number;
         uint16_t name[16];
         uint8_t ip[4];
@@ -24,4 +33,3 @@ public:
 
     PacketData build();
 };
-

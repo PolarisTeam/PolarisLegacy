@@ -16,7 +16,8 @@ using namespace Poco::Crypto;
 using Poco::AutoPtr;
 using Poco::NObserver;
 
-class PolarisConnection {
+class PolarisConnection
+{
 public:
     PolarisConnection(const StreamSocket& socket, SocketReactor& reactor);
     void onReadable(const AutoPtr<ReadableNotification> &);
@@ -46,5 +47,4 @@ private:
     void handleKeyExchange(uint8_t *packet);
 
     void playbackPackets(std::string folder, int startPkt, int endPkt, int sleeptime);
-
 };

@@ -1,15 +1,18 @@
 #include "Packet.h"
 #include "../data/Character.h"
 
-struct MysteryPacket{
+struct MysteryPacket
+{
     PacketHeader header = PacketHeader(0xC, 0x11, 0x49, 0x0, 0x0);
     uint16_t randomDataOfDoom;
-    MysteryPacket(uint16_t randomData) {
+    MysteryPacket(uint16_t randomData)
+    {
         randomDataOfDoom = randomData;
     }
 };
 
-struct CharacterSpawnPacket {
+struct CharacterSpawnPacket
+{
     PacketHeader header;
     CharacterHeaderMaybe charHeaderMaybe;
     MysteryCharacter14 unknown_14;
@@ -34,7 +37,8 @@ struct CharacterSpawnPacket {
     char unknown_207[101];
 };
 
-struct CharacterCreatePacket { // 11-5
+struct CharacterCreatePacket // 11-5
+{
     PacketHeader header;
     char unknown_8[20]; // Usually zeros so far?
     uint16_t name[16];

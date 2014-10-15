@@ -3,7 +3,8 @@
 #include <list>
 #include "PolarisConnection.h"
 
-class PolarisClient {
+class PolarisClient
+{
 public:
     PolarisClient(PolarisConnection* connection);
     PolarisConnection& getConnection();
@@ -11,6 +12,7 @@ public:
 
 private:
     PolarisConnection* theConnection;
+
 public: // For now
     std::string sega_id;
     std::u16string current_character_name;

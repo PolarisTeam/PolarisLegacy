@@ -3,24 +3,28 @@
 #include <iostream>
 #include "Packet.h"
 
-
-PacketData::PacketData(size_t dataSize) {
+PacketData::PacketData(size_t dataSize)
+{
     dataPtr = new uint8_t[dataSize];
     currentPosition = 0;
     size = (int) dataSize;
 }
 
-PacketData::~PacketData() {
+PacketData::~PacketData()
+{
     delete[] dataPtr;
 }
 
-void PacketData::appendData(const void *data, size_t length) {
-    if (currentPosition >= size) {
+void PacketData::appendData(const void *data, size_t length)
+{
+    if (currentPosition >= size)
+    {
         std::cout << "PacketData is too big for buffer!\n";
         return;
     }
 
-    if (currentPosition + length > size) {
+    if (currentPosition + length > size)
+    {
         std::cout << "PacketData is too big for buffer!\n";
         return;
     }
@@ -30,13 +34,16 @@ void PacketData::appendData(const void *data, size_t length) {
     currentPosition += length;
 }
 
-void PacketData::appendBytes(int value, size_t length) {
-    if (currentPosition >= size) {
+void PacketData::appendBytes(int value, size_t length)
+{
+    if (currentPosition >= size)
+    {
         std::cout << "PacketData is too big for buffer!\n";
         return;
     }
 
-    if (currentPosition + length > size) {
+    if (currentPosition + length > size)
+    {
         std::cout << "PacketData is too big for buffer!\n";
         return;
     }
@@ -46,24 +53,26 @@ void PacketData::appendBytes(int value, size_t length) {
     currentPosition += length;
 }
 
-int PacketData::getSize() {
+int PacketData::getSize()
+{
     return this->size;
 }
 
-uint8_t* PacketData::getData() {
+uint8_t* PacketData::getData()
+{
     return this->dataPtr;
 }
 
-PacketData::PacketData() {
+PacketData::PacketData()
+{
     this->size = 0;
 }
 
-PacketData::PacketData(PacketHeader header, void *data) {
+PacketData::PacketData(PacketHeader header, void *data)
+{
     dataPtr = new uint8_t[header.length];
     currentPosition = 0;
     size = (int) header.length;
     appendData(&header, sizeof(header));
     appendData(data, header.length - sizeof(header));
 }
-
-
