@@ -11,7 +11,7 @@ typedef __int128 int128_t;
 * Struct that may or may not be only used in CharacterSpawnPacket.
 * TODO: Find more things that use this and name accordingly OR move into CharacterSpawnPacket if reasonable to.
 */
-struct CharacterHeaderMaybe
+struct CharacterHeaderMaybe // 12 bytes
 {
     uint32_t playerId;
     uint32_t unknown_4;
@@ -96,5 +96,5 @@ struct CharacterJobParameter
     uint32_t unknown_68;
     uint16_t unknown_6C;
     uint16_t unknown_6E;
-	int128_t unknown_70;
+	int32_t unknown_70[4]; // BAD BAD BAD BAD FIXME
 };

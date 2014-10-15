@@ -13,28 +13,29 @@ struct MysteryPacket
 
 struct CharacterSpawnPacket
 {
-    PacketHeader header;
-    CharacterHeaderMaybe charHeaderMaybe;
-    MysteryCharacter14 unknown_14;
-    char asciiString[34]; //\0\0Character in ASCII (Rest is all zeros)
-    uint16_t unknown_44;
-    char unk_46[6];
-    uint32_t unknown_4c;
-    char unk_50[8];
-    uint32_t unknown_58;
-    uint32_t unknown_5C;
-    uint32_t playerIdCopy;
-    char unk_64[4];
-    uint32_t voiceParam_unknown4;
-    uint32_t voiceParam_unknown8;
-    char16_t name[16];
-    char unk_90[4];
-    CharacterLooksParameter looksParam;
-    CharacterJobParameter jobsParam;
-    uint16_t currentTitle[32];
-    char unk_204[2];
-    char unknown_206;
-    char unknown_207[101];
+    PacketHeader header; 					// 8 bytes
+    CharacterHeaderMaybe charHeaderMaybe;	// 12 bytes
+    MysteryCharacter14 unknown_14;			// 14 bytes
+    char asciiString[34]; 					// 34 bytes
+    uint16_t unknown_44;					// 2 bytes
+    char unk_46[6];							// 6 bytes
+    uint32_t unknown_4c;					// 4 bytes
+    char unk_50[8];							// 8 bytes
+    uint32_t unknown_58;					// 4 bytes
+    uint32_t unknown_5C;					// 4 bytes
+    uint32_t playerIdCopy;					// 4 bytes
+    char unk_64[4];							// 4 bytes and it's a char array ugggghhhhh
+    uint32_t voiceParam_unknown4;			// 4 bytes
+    uint32_t voiceParam_unknown8;			// 4 bytes
+    char16_t name[16];						// 32 bytes
+    char unk_90[4];							// 4 bytes
+    CharacterLooksParameter looksParam;		// 176 bytes
+    CharacterJobParameter jobsParam;		// 128 bytes
+    uint16_t currentTitle[32];				// 64 bytes
+    char unk_204[2];						// 2 bytes
+    char unknown_206;						// 1 byte :|
+    char unknown_207[101];					// 101 bytes
+	CharacterSpawnPacket() : header(PacketHeader(sizeof(CharacterSpawnPacket), 0x8, 0x4, 0x0, 0x0)) {}
 };
 
 struct CharacterCreatePacket // 11-5

@@ -170,12 +170,10 @@ void PolarisConnection::handlePacket(uint8_t *packet)
         PacketData flp = FixedLengthPacket(&mystery).build();
         sendPacket(flp);
 
-        //PacketData welcomeMsg(SystemMessagePacket(u"This has not been implemented yet.\nThank you for connecting to a PolarisServer.", 0x1).build());
-        //sendPacket(welcomeMsg);
-        PacketData lResponse(LoginResponsePacket(u"", u"B001-DarkFox", 0).build());
+        PacketData lResponse(LoginResponsePacket(u"", u"B001-DarkFox", this->client->player_id).build());
         sendPacket(lResponse);
 
-        // YOLOSWAG
+        //FIXME: YOLOSWAG
         std::string yolo = "Ini.ControlSetting={LobbyAction={A=\"clap\",C=\"sit2\",B=\"bow\",E=\"yell\",D=\"dance1\",G=\"guts\",F=\"dance2\",I=\"\",H=\"pose1\",K=\"kiss\",J=\"pose2\",M=\"monomane\",L=\"laugh\",O=\"\",N=\"no\",Q=\"howareyou\",P=\"chair_oran\",S=\"sorry\",R=\"salute\",U=\"you\",T=\"praise\",W=\"wave\",V=\"provoke\",Y=\"yes\",X=\"sit1\",Z=\"greet\",},MainInputType=0,LoginCall=true,PadBehavior={AnalogSetting={L={Direction=\"Plus\",ChangeSign=false,Axis=\"Z\",},R={Direction=\"Minus\",ChangeSign=true,Axis=\"Z\",},X2={Direction=\"Both\",ChangeSign=false,Axis=\"Rx\",},Y2={Direction=\"Both\",ChangeSign=false,Axis=\"Ry\",},Y1={Direction=\"Both\",ChangeSign=false,Axis=\"Y\",},X1={Direction=\"Both\",ChangeSign=false,Axis=\"X\",},},DigitalSetting={A=1,B18=16,B15=13,B=0,RThumb=9,B21=19,B19=17,B14=12,L=4,B20=18,LThumb=8,B17=15,R=5,Select=6,X=2,Y=3,B16=14,ThresR=15,B22=22,Start=7,ThresL=14,R2=-1,L2=-1,},},MouseCtrl={MouseActionWheel={Wheel=\"ChangeMainPalette\",},MouseActionLR={R=\"PhotonArts\",L=\"NormalAttack\",},Presets={[1]=\"RRcm\",[2]=\"RRcm\",},Window={X2=\"\",R=\"CloseForm\",M=\"\",X1=\"\",},MouseActionM={M=\"SelectMenu\",X2=\"\",X1=\"\",},},PadCtrl={NormalView={PhotonArts=\"Y\",PaletteForce=\"PovExactD\",LockOnNext=\"\",PaletteReverse=\"PovExactU\",ChangeAreaMap=\"LThumb\",SubPalette=\"ThresL\",SubPaletteLeft=\"PovExactL\",Jump=\"B\",AutoRun=\"\",MainMenu=\"Start\",NormalAttack=\"X\",WeaponAction=\"R\",ChangeView=\"\",SelectMenu=\"Select\",Access=\"A\",Avoid=\"ThresR\",LockOn=\"L\",SubPaletteRight=\"PovExactR\",ChangeRadarMap=\"RThumb\",},Window={Cancel=\"B\",ChangeCtrlWindowBack=\"\",Decide=\"A\",Exception=\"RThumb\",TabBack=\"L\",AllWindowClose=\"Start\",Function=\"X\",NextWidget=\"Y\",PageForward=\"\",MultiSelect=\"ThresR\",PageBack=\"\",NextTabDetails=\"Select\",TabForward=\"R\",ChangeCtrlWindowForward=\"ThresL\",},ShoulderView={SubPaletteLeft=\"PovExactL\",PhotonArts=\"Y\",Jump=\"B\",AutoRun=\"\",MainMenu=\"Start\",Access=\"A\",Avoid=\"ThresR\",SelectMenu=\"Select\",ChangeView=\"RThumb\",PaletteReverse=\"PovExactU\",WeaponAction=\"R\",NormalAttack=\"X\",SubPalette=\"ThresL\",SubPaletteRight=\"PovExactR\",PaletteForce=\"PovExactD\",},Presets={[2]=\"RZViewRcm\",[1]=\"Custom\",[3]=\"Rcm1\",},},KeyboardCtrl={Shortcut={RunSubPalette=\"1\",ChangeMainPalette=\"3\",RunWindowShortcut=\"2\",RunShortcutWord=\"4\",},Presets={[2]=\"RZViewRcm\",[3]=\"Rcm1\",[1]=\"RNViewRcm\",[4]=\"Rcm1\",[5]=\"Custom\",[9]=\"Custom\",},WindowShortcutFunc={WindowShortcut8=\"13\",WindowShortcut9=\"2\",WindowShortcut3=\"4\",WindowShortcut1=\"1\",WindowShortcut5=\"7\",WindowShortcut4=\"5\",WindowShortcut0=\"19\",WindowShortcut2=\"3\",WindowShortcut7=\"9\",WindowShortcut6=\"8\",},Window={Cancel=\"LBracket\",Decide=\"Return\",TabBack=\"Comma\",MultiSelect=\"Shift\",ChangeCtrlWindowForward=\"Numpad1\",NextWidget=\"Tab\",MoveSelection=\"Tab\",NextTabDetails=\"Q\",TabForward=\"Period\",ChangeCtrlWindowBack=\"Numpad3\",},NormalView={Access=\"E\",OpenPayShop=\"\",OpenPlayerList=\"\",PaletteForce=\"F\",OpenLicense=\"\",ChangeMouseMode=\"T\",ChatStartParty=\"P\",PaletteReverse=\"R\",ChangeAreaMap=\"N\",OpenMail=\"\",ChatStart=\"Return\",OpenWeapon=\"\",OpenCharaInfo=\"\",SubPaletteLeft=\"G\",OpenRentalLimit=\"\",OpenFriend=\"\",Jump=\"Space\",MainMenu=\"\",ChangeRadarMap=\"M\",OpenProfile=\"\",ChatStartWhisper=\"L\",CameraUp=\"Divide\",ChangeView=\"Z\",WeaponAction=\"Shift\",OpenLogOut=\"F12\",OpenClientOrder=\"\",LockOn=\"Q\",MoveRight=\"D\",OpenQuestInfo=\"\",PhotonArts=\"Backslash\",OpenCustomize=\"U\",MoveLeft=\"A\",OpenMyMenu=\"\",OpenEventItem=\"\",OpenMag=\"Y\",LockOnNext=\"\",ChatStartGuild=\"O\",CameraDown=\"Multiply\",MoveForward=\"W\",MoveBack=\"S\",OpenArmor=\"\",CameraNear=\"Subtract\",SubPalette=\"B\",OpenConfig=\"\",OpenGuild=\"\",OpenMatterBoard=\"\",OpenSubPalette=\"J\",OpenParty=\"\",OpenCommunicationLog=\"\",Avoid=\"X\",AutoRun=\"V\",OpenItemPack=\"I\",OpenPayLog=\"\",OpenSymbolArt=\"\",NormalAttack=\"Slash\",SelectMenu=\"\",OpenAcGacha=\"F11\",ChatStartPublic=\"Semicolon\",CameraFar=\"Add\",SubPaletteRight=\"H\",OpenMacro=\"\",},ShoulderView={MoveForward=\"W\",OpenPayShop=\"\",OpenPlayerList=\"\",MainMenu=\"\",OpenLicense=\"\",ChangeMouseMode=\"T\",ChatStartParty=\"P\",PaletteReverse=\"R\",ChangeAreaMap=\"N\",OpenMail=\"\",ChatStart=\"Return\",OpenWeapon=\"\",OpenCharaInfo=\"\",SubPaletteLeft=\"G\",OpenRentalLimit=\"\",OpenFriend=\"\",Jump=\"Space\",OpenMacro=\"\",ChangeRadarMap=\"M\",OpenProfile=\"\",ChatStartWhisper=\"L\",Access=\"E\",ChangeView=\"Z\",OpenAcGacha=\"F11\",OpenQuestInfo=\"\",OpenClientOrder=\"\",LockOn=\"Q\",MoveRight=\"D\",OpenLogOut=\"F12\",PhotonArts=\"Backslash\",OpenCustomize=\"U\",NormalAttack=\"Slash\",OpenMyMenu=\"\",OpenEventItem=\"\",OpenMag=\"Y\",LockOnNext=\"\",ChatStartGuild=\"O\",CameraDown=\"\",WeaponAction=\"Shift\",MoveBack=\"S\",OpenArmor=\"\",CameraNear=\"\",SubPalette=\"B\",OpenConfig=\"\",OpenGuild=\"\",OpenMatterBoard=\"\",OpenSubPalette=\"J\",OpenParty=\"\",OpenCommunicationLog=\"\",Avoid=\"X\",AutoRun=\"V\",OpenItemPack=\"I\",OpenPayLog=\"\",OpenSymbolArt=\"\",MoveLeft=\"A\",SelectMenu=\"\",CameraUp=\"\",ChatStartPublic=\"Semicolon\",PaletteForce=\"F\",SubPaletteRight=\"H\",CameraFar=\"\",},},Announce={Type=3,},IgnoreBeginnerBlock=false,}\n\0";
         uint32_t swag = (uint32_t) (((yolo.size() + 1) + 0x100) ^ 0x54AF);
         PacketHeader swagHeader(8 + (yolo.length() + 1) + sizeof(swag), 0x2B, 0x02, 0x4, 0x0);
@@ -246,12 +244,24 @@ void PolarisConnection::handlePacket(uint8_t *packet)
         setPlayerID.appendBytes(0, 3);
         sendPacket(setPlayerID); // Set player ID.
 
-        playbackPackets("sampleset", 103, 104, 1); // TODO: Set player data
+		CharacterSpawnPacket csp = {};
+		PolarisCharacter curChar = PolarisTemp::lastCharacter;
+		Polaris::copy_array(curChar.name, csp.name, 16);
+		Polaris::copy_array((char*)"\0\0Character", csp.asciiString, 11);
+		Poco::Util::Application::instance().logger().information(Polaris::string_format("size of hax: %d", sizeof(CharacterSpawnPacket)));
+		csp.charHeaderMaybe.playerId = this->client->player_id;
+		csp.jobsParam = curChar.jobs;
+		csp.looksParam = curChar.looks;
+		csp.playerIdCopy = this->client->player_id;
 
-        PacketData unlockControls(0x8);
-        PacketHeader unlockHeader(0x8, 0x3, 0x2b, 0x0, 0x0);
-        unlockControls.appendData(&unlockHeader, 0x8);
-        sendPacket(unlockControls); // Unlock player movement.
+		PacketData cspPkt(sizeof(CharacterSpawnPacket));
+		cspPkt.appendData(&csp, sizeof(CharacterSpawnPacket));
+		sendPacket(cspPkt);
+
+        //PacketData unlockControls(0x8);
+        //PacketHeader unlockHeader(0x8, 0x3, 0x2b, 0x0, 0x0);
+        //unlockControls.appendData(&unlockHeader, 0x8);
+        //sendPacket(unlockControls); // Unlock player movement.
     }
 
     if (header->command == 0x3 && header->subcommand == 0x10)
