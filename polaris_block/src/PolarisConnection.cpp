@@ -188,8 +188,8 @@ void PolarisConnection::handlePacket(uint8_t *packet)
     // Character list request
     if (header->command == 0x11 && header->subcommand == 0x02)
     {
-		CharacterListPacket clp = {};
-		clp.header = PacketHeader(sizeof(CharacterListPacket), 0x11, 0x03, 0x0, 0x0);
+		PacketHeader clpHeader(sizeof(CharacterListPacket), 0x11, 0x03, 0x0, 0x0);
+		CharacterListPacket clp = {clp.header = clpHeader};
 		clp.numberOfCharacters = 0;
 		PacketData clpPkt(sizeof(clp));
 		clpPkt.appendData(&clp, sizeof(clp));
