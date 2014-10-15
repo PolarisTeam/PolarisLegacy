@@ -2,14 +2,14 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include "Packet.h"
 
 struct PacketHeader;
 
 /**
 * PacketData class.
-* This is used as a container for storing a PSO2Packer, it's a wrapper for a bunch of memcpy calls.
-* Also, useful type data could be put here (PSO2 Strings maybe?)
-* It currently needs to be done better
+* This is used as a container for storing a PSO2Packet, it's a wrapper for a bunch of memcpy calls.
+* It may or may not need more work
 */
 class PacketData 
 {

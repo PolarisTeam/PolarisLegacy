@@ -188,19 +188,13 @@ void PolarisConnection::handlePacket(uint8_t *packet)
     // Character list request
     if (header->command == 0x11 && header->subcommand == 0x02)
     {
-        // TODO: This handling is only used until we figure out character data from scratch.
-        FILE * binfile = fopen("charinfo.bin", "rb"); // Provide any 11-3 packet from a SEGA server.
-        fseek(binfile, 0, SEEK_END);
-        long size = ftell(binfile);
-        fseek(binfile, 0, SEEK_SET);
-        char * theFile = new char[size];
-        fread(theFile, 1, size, binfile);
-        fclose(binfile);
+		CharacterListPacket clp = {};
+		clp.header = PacketHeader(sizeof(CharacterListPacket), 0x11, 0x03, 0x0, 0x0);
+		clp.numberOfCharacters = 0;
+		PacketData clpPkt(sizeof(clp));
+		clpPkt.appendData(&clp, sizeof(clp));
 
-        PacketData data(size);
-        data.appendData(theFile, size);
-        sendPacket(data);
-        delete[] theFile;
+		sendPacket(clpPkt);
     }
 
     // Character selected...

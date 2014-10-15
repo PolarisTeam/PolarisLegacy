@@ -48,6 +48,18 @@ struct CharacterCreatePacket // 11-5
     char unknown_footer[68];
 };
 
+struct CharacterListPacket { //11-3
+	PacketHeader header;
+	uint32_t numberOfCharacters;
+	uint32_t unknown_C;
+	uint32_t playerId;
+	char unknown_13[0xD]; // 00 00 00 00 00 03 00 00 00 00 00 C8 C2
+	uint16_t name[16];
+	uint32_t padding;
+	CharacterLooksParameter looks;
+	CharacterJobParameter jobs;
+};
+
 class FixedLengthPacket : public Packet
 {
 public:

@@ -15,7 +15,7 @@ PacketData::~PacketData()
     delete[] dataPtr;
 }
 
-void PacketData::appendData(const void *data, size_t length)
+void PacketData::appendData(const void* data, size_t length)
 {
     if (currentPosition >= size)
     {
