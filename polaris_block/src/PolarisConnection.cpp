@@ -247,6 +247,13 @@ void PolarisConnection::handlePacket(uint8_t *packet)
 		CharacterSpawnPacket csp = {};
 		memset(&csp, 0, sizeof(CharacterSpawnPacket));
 		csp.header = PacketHeader(sizeof(CharacterSpawnPacket), 0x8, 0x4, 0x0, 0x0);
+		csp.charHeaderMaybe.unknown_8 = 4;
+		csp.unknown_14.unknown_2 = 0xED3A;
+		csp.unknown_14.unknown_6 = 0x0038;
+		csp.unknown_14.unknown_7 = 0xBBD1;
+		csp.unknown_14.unknown_C = 0xB5D6;
+		csp.unknown_44 = 1;
+		csp.unknown_48 = 1337;
 		PolarisCharacter curChar = PolarisTemp::lastCharacter;
 		Polaris::copy_array(curChar.name, csp.name, 16);
 		Polaris::copy_array((char*)"\0\0Character", csp.asciiString, 11);
@@ -260,10 +267,10 @@ void PolarisConnection::handlePacket(uint8_t *packet)
 		cspPkt.appendData(&csp, sizeof(CharacterSpawnPacket));
 		sendPacket(cspPkt);
 
-        //PacketData unlockControls(0x8);
-        //PacketHeader unlockHeader(0x8, 0x3, 0x2b, 0x0, 0x0);
-        //unlockControls.appendData(&unlockHeader, 0x8);
-        //sendPacket(unlockControls); // Unlock player movement.
+        PacketData unlockControls(0x8);
+        PacketHeader unlockHeader(0x8, 0x3, 0x2b, 0x0, 0x0);
+        unlockControls.appendData(&unlockHeader, 0x8);
+        sendPacket(unlockControls); // Unlock player movement.
     }
 
     if (header->command == 0x3 && header->subcommand == 0x10)

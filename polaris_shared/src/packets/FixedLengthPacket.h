@@ -18,7 +18,8 @@ struct CharacterSpawnPacket
     MysteryCharacter14 unknown_14;			// 14 bytes
     char asciiString[34]; 					// 34 bytes
     uint16_t unknown_44;					// 2 bytes
-    char unk_46[6];							// 6 bytes
+	uint32_t unknown_48;
+    char unk_4A[2];							// 6 bytes
     uint32_t unknown_4c;					// 4 bytes
     char unk_50[8];							// 8 bytes
     uint32_t unknown_58;					// 4 bytes
