@@ -190,7 +190,7 @@ void PolarisConnection::handlePacket(uint8_t *packet)
     if (header->command == 0x11 && header->subcommand == 0x02)
     {
 		CharacterListPacket clp = {};
-		/*if(PolarisTemp::lastCharacter.name != NULL)
+		if(PolarisTemp::lastCharacter.name != NULL)
 		{
 			clp.numberOfCharacters = 1;
 			//std::copy(std::begin(PolarisTemp::lastCharacter.name.data()), std::end(PolarisTemp::lastCharacter.name.data()), std::begin(clp.name));
@@ -202,7 +202,7 @@ void PolarisConnection::handlePacket(uint8_t *packet)
 		else
 		{
 			clp.numberOfCharacters = 0;
-		}*/
+		}
 		PacketData clpPkt(sizeof(clp));
 		clpPkt.appendData(&clp, sizeof(clp));
 
