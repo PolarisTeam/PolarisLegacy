@@ -245,6 +245,8 @@ void PolarisConnection::handlePacket(uint8_t *packet)
         sendPacket(setPlayerID); // Set player ID.
 
 		CharacterSpawnPacket csp = {};
+		memset(&csp, 0, sizeof(CharacterSpawnPacket));
+		csp.header = PacketHeader(sizeof(CharacterSpawnPacket), 0x8, 0x4, 0x0, 0x0);
 		PolarisCharacter curChar = PolarisTemp::lastCharacter;
 		Polaris::copy_array(curChar.name, csp.name, 16);
 		Polaris::copy_array((char*)"\0\0Character", csp.asciiString, 11);
