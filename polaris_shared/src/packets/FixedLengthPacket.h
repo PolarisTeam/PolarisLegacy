@@ -53,11 +53,11 @@ struct CharacterListPacket
 { //11-3
 	PacketHeader header;
 	uint32_t numberOfCharacters;
-	uint32_t unknown_C;
-	uint32_t playerId;
-	char unknown_13[0xD]; // 00 00 00 00 00 03 00 00 00 00 00 C8 C2
-	uint16_t name[16];
-	uint32_t padding;
+	uint32_t characterId = 0;
+	uint32_t playerId = 0;
+	uint8_t unknown_13[0xC] = {00, 00, 00, 00, 03, 00, 00, 00, 00, 00, 0xC8, 0xC2}; // 00 00 00 00 00 03 00 00 00 00 00 C8 C2
+	char16_t name[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	uint32_t padding = 0;
 	CharacterLooksParameter looks;
 	CharacterJobParameter jobs;
 	CharacterListPacket() : header(PacketHeader(sizeof(CharacterListPacket), 0x11, 0x3, 0x0, 0x0)) {}

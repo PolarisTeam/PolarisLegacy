@@ -190,15 +190,17 @@ void PolarisConnection::handlePacket(uint8_t *packet)
     if (header->command == 0x11 && header->subcommand == 0x02)
     {
 		CharacterListPacket clp = {};
-		if(PolarisTemp::lastCharacter.name.length() > 0)
+		if(((const std::u16string) PolarisTemp::lastCharacter.name).length() > 0)
 		{
 			clp.numberOfCharacters = 1;
 			//FIXME: Be cooler than this
 			for(int i = 0; i < 16; i++)
 			{
-				clp.name[i] = PolarisTemp::lastCharacter.name.data()[i];
+				clp.name[i] = PolarisTemp::lastCharacter.name[i];
 			}
 			//clp.name = PolarisTemp::lastCharacter.name.data();
+			clp.characterId = client->player_id;
+			clp.padding = 0;
 			clp.playerId = client->player_id;
 			clp.looks = PolarisTemp::lastCharacter.looks;
 			clp.jobs = PolarisTemp::lastCharacter.jobs;
@@ -294,10 +296,14 @@ void PolarisConnection::handlePacket(uint8_t *packet)
 		std::string output = Polaris::string_format("New character created, %ls. Setting as temporary listed character.", ccp->name);
 		Poco::Util::Application::instance().logger().information(output);
 		PolarisCharacter newChar;
-		newChar.name = (const std::u16string)ccp->name; // <-- This line Mike is throwing an error, newChar.name is a std::u16string, ccp->name is a uint16_t[16]; ... HOW2Fix
+		for(int i = 0; i < 16; i++)
+		{
+			newChar.name[i] = ccp->name[i];
+		}
 		newChar.jobs = ccp->jobs;
 		newChar.looks = ccp->looks;
 		PolarisTemp::lastCharacter = newChar;
+		this->socket.close();
 	}
 }
 

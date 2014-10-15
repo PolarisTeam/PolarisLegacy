@@ -10,5 +10,5 @@ public:
 
 	CharacterJobParameter jobs;
 	CharacterLooksParameter looks;
-	std::u16string name;
+	char16_t name[16];
 };
