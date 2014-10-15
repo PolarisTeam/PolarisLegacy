@@ -193,7 +193,11 @@ void PolarisConnection::handlePacket(uint8_t *packet)
 		if(PolarisTemp::lastCharacter.name.length() > 0)
 		{
 			clp.numberOfCharacters = 1;
-			//std::copy(std::begin(PolarisTemp::lastCharacter.name.data()), std::end(PolarisTemp::lastCharacter.name.data()), std::begin(clp.name));
+			//FIXME: Be cooler than this
+			for(int i = 0; i < 16; i++)
+			{
+				clp.name[i] = PolarisTemp::lastCharacter.name.data()[i];
+			}
 			//clp.name = PolarisTemp::lastCharacter.name.data();
 			clp.playerId = client->player_id;
 			clp.looks = PolarisTemp::lastCharacter.looks;
