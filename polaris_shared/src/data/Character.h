@@ -1,3 +1,9 @@
+#ifdef _MSC_VER
+typedef __m128 int128_t;
+#else
+typedef __int128 int128_t;
+#endif
+
 struct CharBlob1
 {
     // 0x1AC Big
@@ -81,9 +87,5 @@ struct CharacterJobParameter
     uint32_t unknown_68;
     uint16_t unknown_6C;
     uint16_t unknown_6E;
-    #ifdef __MSC_VER // THANKS MSVC
-    unsigned __m128 unknown_70;
-    #else
-    unsigned __int128 unknown_70;
-    #endif
+	int128_t unknown_70;
 };
