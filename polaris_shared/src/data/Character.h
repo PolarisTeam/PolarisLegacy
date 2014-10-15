@@ -35,17 +35,6 @@ struct MysteryCharacter14
 };
 
 /**
-* Looks Parameter for Characters and maybe actors.
-* TODO: Fully document this memory area.
-*/
-struct CharacterLooksParameter
-{
-    char unknown_data[175];
-    char unknown_AF;
-};
-
-
-/**
 * 'Job' (aka class) Parameters for Characters.
 * TODO: Split the level entires into their own structs.
 * TODO: Figure out what all the unknown values are used for.
@@ -97,4 +86,61 @@ struct CharacterJobParameter
     uint16_t unknown_6C;
     uint16_t unknown_6E;
 	int32_t unknown_70[4]; // BAD BAD BAD BAD FIXME
+};
+
+/**
+* A very simple HSV color struct
+*/
+struct HSVColor
+{
+    uint16_t hue;
+    uint16_t saturation;
+    uint16_t value;
+};
+
+enum CharacterRace
+{
+    CRACE_HUMAN = 0,
+    CRACE_NEWMAN,
+    CRACE_CAST,
+    CRACE_DEWMAN
+};
+
+/**
+* Looks Parameter for Characters and maybe actors.
+* TODO: Fully document this memory area.
+*/
+struct CharacterLooksParameter
+{
+    uint8_t charData[86]; // Head and Body data
+    uint16_t accData1;
+    uint16_t accData2;
+    uint16_t accData3;
+    char unknown_4[6];
+    HSVColor costumeColor;
+    char unknown_5[12];
+    HSVColor skinColor;
+    HSVColor eyeColor;
+    char unknown_6[6];
+    HSVColor hairColor;
+    char unknown_7[2];
+    uint16_t bodyPaint;
+    uint8_t emblem;
+    uint8_t eyePattern;
+    uint16_t eyebrows;
+    uint8_t eyelashes;
+    uint32_t faceVariant;
+    uint8_t makeupPattern1;
+    uint8_t hairstyle;
+    uint16_t acc1;
+    uint16_t acc2;
+    uint16_t acc3;
+    uint8_t makeupPattern2;
+    uint16_t acc4;
+    uint16_t costume;
+    char unknown_8[2];
+    uint8_t race;
+    char unknown_9;
+    uint8_t female;
+    char unknown_10[5];
 };
