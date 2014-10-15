@@ -46,6 +46,7 @@ struct CharacterCreatePacket // 11-5
     CharacterLooksParameter looks;
     CharacterJobParameter jobs;
     char unknown_footer[68];
+	CharacterCreatePacket() : header(PacketHeader(sizeof(CharacterCreatePacket), 0x11, 0x5, 0x0, 0x0)) {}
 };
 
 struct CharacterListPacket
@@ -59,6 +60,7 @@ struct CharacterListPacket
 	uint32_t padding;
 	CharacterLooksParameter looks;
 	CharacterJobParameter jobs;
+	CharacterListPacket() : header(PacketHeader(sizeof(CharacterListPacket), 0x11, 0x3, 0x0, 0x0)) {}
 };
 
 class FixedLengthPacket : public Packet
