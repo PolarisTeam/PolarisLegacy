@@ -6,8 +6,8 @@ std::list<PolarisClient *> clients;
 
 PolarisClient::PolarisClient(PolarisConnection* connection) : theConnection(connection)
 {
-    lastPlayerId++;
-    this->player_id = lastPlayerId;
+	PolarisTemp::lastPlayerId++;
+    this->player_id = PolarisTemp::lastPlayerId;
     clients.push_back(this);
 }
 

@@ -1,21 +1,15 @@
+#include <stdint.h>
+
 #ifdef _MSC_VER
 typedef __m128 int128_t;
 #else
 typedef __int128 int128_t;
 #endif
 
-struct CharBlob1
-{
-    // 0x1AC Big
-    uint16_t nameBuffer[16];
-    uint8_t padding[4] = {0, 0, 0, 0};
-};
-
-struct CharBlob2
-{
-    uint8_t unknown[0x230];
-};
-
+/**
+* Struct that may or may not be only used in CharacterSpawnPacket.
+* TODO: Find more things that use this and name accordingly OR move into CharacterSpawnPacket if reasonable to.
+*/
 struct CharacterHeaderMaybe
 {
     uint32_t playerId;
@@ -24,6 +18,10 @@ struct CharacterHeaderMaybe
     uint16_t unknown_A;
 };
 
+/**
+* It's a mystery!
+* TODO: Make this not a mystery.
+*/
 struct MysteryCharacter14
 {
     uint16_t unknown_0;
@@ -35,12 +33,22 @@ struct MysteryCharacter14
     uint16_t unknown_C;
 };
 
+/**
+* Looks Parameter for Characters and maybe actors.
+* TODO: Fully document this memory area.
+*/
 struct CharacterLooksParameter
 {
     char unknown_data[175];
     char unknown_AF;
 };
 
+
+/**
+* 'Job' (aka class) Parameters for Characters.
+* TODO: Split the level entires into their own structs.
+* TODO: Figure out what all the unknown values are used for.
+*/
 struct CharacterJobParameter
 {
     char unknown_0;

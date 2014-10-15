@@ -1,8 +1,17 @@
 #include "Poco/Util/ServerApplication.h"
+#include "PolarisCharacter.h"
 
 using Poco::Util::ServerApplication;
 
-static uint32_t lastPlayerId; // TODO: Do NOT have this as static...
+/*
+* This is a temporary namespace for features that are being worked on, EVERYTHING HERE will go away someday
+* FIXME: Remove this
+*/
+namespace PolarisTemp
+{
+	static uint32_t lastPlayerId;
+	static PolarisCharacter lastCharacter;
+}
 
 class PolarisBlockApp : public ServerApplication
 {

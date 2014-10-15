@@ -17,7 +17,7 @@ int main(int argc, char** argv)
 
 int PolarisBlockApp::main(const std::vector<std::string> &args)
 {
-    lastPlayerId = 0;
+    PolarisTemp::lastPlayerId = 0;
     // Create + Bind socket
     ServerSocket blockSocket(12201); // TODO Config file / Argument / Whatever
 

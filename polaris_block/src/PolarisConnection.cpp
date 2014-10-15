@@ -16,6 +16,7 @@
 #include "Poco/File.h"
 #include "Poco/FileStream.h"
 #include "RandomHelper.h"
+#include "PolarisBlock.h"
 
 PolarisConnection::PolarisConnection(const StreamSocket& socket, SocketReactor& reactor):
     socket(socket),
@@ -102,7 +103,7 @@ void PolarisConnection::onReadable(AutoPtr<ReadableNotification> const &notifica
             bufferPosition = 0;
         } else {
             // Some data remains, move it to the beginning
-            memmove(bufferPtr, &bufferPtr[position], bufferPosition - position);
+            memmove(bufferPtr, &bufferPtr[position], (size_t) (bufferPosition - position));
             bufferPosition -= position;
         }
     }
@@ -136,7 +137,7 @@ void PolarisConnection::sendPacket(PacketData &data)
     }
 }
 
-
+//FIXME: This function needs a lot of work, a lot of things have TODOs or FIXMEs on them.
 void PolarisConnection::handlePacket(uint8_t *packet)
 {
     PacketHeader *header = (PacketHeader *)packet;
@@ -189,7 +190,19 @@ void PolarisConnection::handlePacket(uint8_t *packet)
     if (header->command == 0x11 && header->subcommand == 0x02)
     {
 		CharacterListPacket clp = {};
-		clp.numberOfCharacters = 0;
+		/*if(PolarisTemp::lastCharacter.name != NULL)
+		{
+			clp.numberOfCharacters = 1;
+			//std::copy(std::begin(PolarisTemp::lastCharacter.name.data()), std::end(PolarisTemp::lastCharacter.name.data()), std::begin(clp.name));
+			//clp.name = PolarisTemp::lastCharacter.name.data();
+			clp.playerId = client->player_id;
+			clp.looks = PolarisTemp::lastCharacter.looks;
+			clp.jobs = PolarisTemp::lastCharacter.jobs;
+		}
+		else
+		{
+			clp.numberOfCharacters = 0;
+		}*/
 		PacketData clpPkt(sizeof(clp));
 		clpPkt.appendData(&clp, sizeof(clp));
 
@@ -249,7 +262,6 @@ void PolarisConnection::handlePacket(uint8_t *packet)
         memcpy((void *) &messageData, packet + 0x1C, header->length - 0x1C);
         std::u16string message(messageData);
         Poco::Util::Application::instance().logger().information(Polaris::string_format("CHAT: %ls", message.data()));
-        playbackPackets("sampleset", 794, 1177, 1);
     }
 
     // Character creator request
@@ -271,6 +283,18 @@ void PolarisConnection::handlePacket(uint8_t *packet)
         yayPkt2.appendBytes(0, 0xC - sizeof(yay2));
         sendPacket(yayPkt2);
     }
+
+	if(header->command == 0x11 && header->subcommand == 0x05)
+	{
+		CharacterCreatePacket* ccp = (CharacterCreatePacket *) packet;
+		std::string output = Polaris::string_format("New character created, %ls. Setting as temporary listed character.", ccp->name);
+		Poco::Util::Application::instance().logger().information(output);
+		PolarisCharacter newChar;
+		newChar.name = ccp->name;
+		newChar.jobs = ccp->jobs;
+		newChar.looks = ccp->looks;
+		PolarisTemp::lastCharacter = newChar;
+	}
 }
 
 void PolarisConnection::handleKeyExchange(uint8_t *packet)
