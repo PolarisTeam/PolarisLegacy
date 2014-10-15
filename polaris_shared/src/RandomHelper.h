@@ -1,3 +1,5 @@
+#pragma once
+
 namespace Polaris
 {
     std::string string_format(const char *fmt, ...);
@@ -8,4 +10,6 @@ namespace Polaris
 		for (int i = 0; i < size; i++)
 			dest[i] = source[i];
 	}
+
+	uint16_t bswap_uint16(uint16_t a);
 }

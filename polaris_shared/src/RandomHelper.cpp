@@ -22,6 +22,11 @@ namespace Polaris
         return str;
     }
 
+	uint16_t bswap_uint16(uint16_t a)
+	{
+		return (uint16_t) (((a & 0xFF) << 8) | ((a & 0xFF00) >> 8));
+	}
+
 
 }
 

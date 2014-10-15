@@ -1,6 +1,12 @@
 #include "Packet.h"
 #include "../data/Character.h"
 
+#if defined (__MINGW32__) && ((__GNUC__ > 3) || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4))
+#define ATTRPACK __attribute__((packed, gcc_struct))
+#else
+#define ATTRPACK __attribute__((packed))
+#endif
+
 struct MysteryPacket
 {
     PacketHeader header = PacketHeader(0xC, 0x11, 0x49, 0x0, 0x0);
@@ -15,11 +21,11 @@ struct CharacterSpawnPacket
 {
     PacketHeader header; 					// 8 bytes
     CharacterHeaderMaybe charHeaderMaybe;	// 12 bytes
-    MysteryCharacter14 unknown_14;			// 14 bytes
+    MysteryCharacter14 spawnPosition;		// 14 bytes
     char asciiString[34]; 					// 34 bytes
     uint16_t unknown_44;					// 2 bytes
-	uint32_t unknown_48;
-    char unk_4A[2];							// 6 bytes
+	char unk_48[2];							// 6 bytes
+	uint32_t unknown_4A;
     uint32_t unknown_4c;					// 4 bytes
     char unk_50[8];							// 8 bytes
     uint32_t unknown_58;					// 4 bytes
@@ -37,7 +43,7 @@ struct CharacterSpawnPacket
     char unknown_206;						// 1 byte :|
     char unknown_207[101];					// 101 bytes
 	CharacterSpawnPacket() : header(PacketHeader(sizeof(CharacterSpawnPacket), 0x8, 0x4, 0x0, 0x0)) {}
-};
+} ATTRPACK;
 
 struct CharacterCreatePacket // 11-5
 {
@@ -49,7 +55,7 @@ struct CharacterCreatePacket // 11-5
     CharacterJobParameter jobs;
     char unknown_footer[68];
 	CharacterCreatePacket() : header(PacketHeader(sizeof(CharacterCreatePacket), 0x11, 0x5, 0x0, 0x0)) {}
-};
+} ATTRPACK;
 
 struct CharacterListPacket
 { //11-3
@@ -63,7 +69,7 @@ struct CharacterListPacket
 	CharacterLooksParameter looks;
 	CharacterJobParameter jobs;
 	CharacterListPacket() : header(PacketHeader(sizeof(CharacterListPacket), 0x11, 0x3, 0x0, 0x0)) {}
-};
+} ATTRPACK;
 
 class FixedLengthPacket : public Packet
 {
