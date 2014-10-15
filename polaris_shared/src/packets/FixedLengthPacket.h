@@ -48,7 +48,10 @@ struct CharacterSpawnPacket
 struct CharacterCreatePacket // 11-5
 {
     PacketHeader header;
-    char unknown_8[20]; // Usually zeros so far?
+    char unknown_8[12];
+    uint8_t voiceType;
+    char unknown_A[5];
+    uint16_t voiceData;
     char16_t name[16];
     char padding[4];
     CharacterLooksParameter looks;

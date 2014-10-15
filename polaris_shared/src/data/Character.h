@@ -112,59 +112,18 @@ enum CharacterRace
 */
 struct CharacterLooksParameter
 {
-    // PACKET MAP
-    // ----------------------------------------
-    // Offset 14 - Voice Type
-    // Offset 1A - Voice Pitch / other voice data?
-    // Offset 1C - Name
-    // Offset 40 - Body Data? - Seems to be all of the data related to the body type and properties, 12 bytes in length
-    // Offset 58 - Face Data? - Seems to be all of the data related to the face and it's properties, 24 bytes in length
-    // Offset 8E - Accessory Data 1 - 2 bytes each (Where is the 4th Accessory data?)
-    // Offset 90 - Accessory Data 2
-    // Offset 92 - Accessory Data 3
-    // Offset 9A - Costume Color - This also appears to be HSV, so it seems the you could potentially color things beyond the predefined colors that are given in chargen
-    // Offset AC - Skin Color - 4 bytes, 2 for vertical and 2 for horizontal position on the color grid?
-    // Offset B8 - Eye Color
-    // Offset BE - Hair Color
-    // Offset C6 - Body Paint
-    // Offset C8 - Emblem
-    // Offset CA - Eye Pattern
-    // Offset CC - Eyebrows (second byte always seems to be 27?, first byte also contains the Match Hair color flag)
-    // Offset CE - Eyelashes
-    // Offset D0 - Face Variant? (Seems to be 4 bytes long, the values are pretty random)
-    // Offset D4 - Makeup Pattern 1
-    // Offset D6 - Hairstyle
-    // Offset D8 - Accessory 1 - 2 Bytes each
-    // Offset DA - Accessory 2
-    // Offset DC - Accessory 3
-    // Offset DE - Makeup Pattern 2
-    // Offset E4 - Accessory 4
-    // Offset E6 - Costume
-    // Offset EA - Female?
-    // Offset EB - Race
-    // Offset F0 - Job
-    
-    char unknown_1[12];
-    uint8_t voiceType;
-    char unknown_2[5];
-    uint32_t voiceData;
-    char16_t name[16];
-    char unknown_3[4];
-    uint8_t bodyData[12];
-    char unknown_4[24];
-    uint8_t faceData[24];
-    char unknown_5[12];
+    uint8_t charData[86]; // Head and Body data
     uint16_t accData1;
     uint16_t accData2;
     uint16_t accData3;
-    char unknown_6[6];
+    char unknown_4[6];
     HSVColor costumeColor;
-    char unknown_7[12];
+    char unknown_5[12];
     HSVColor skinColor;
     HSVColor eyeColor;
-    char unknown_8[6]; // Another color?
+    char unknown_6[6];
     HSVColor hairColor;
-    char unknown_9[2];
+    char unknown_7[2];
     uint16_t bodyPaint;
     uint8_t emblem;
     uint8_t eyePattern;
@@ -179,11 +138,9 @@ struct CharacterLooksParameter
     uint8_t makeupPattern2;
     uint16_t acc4;
     uint16_t costume;
-    char unknown_10[2];
-    uint8_t race; // Race and gender could actually be part of CharacterJobParameter?
-    char unknown_11;
+    char unknown_8[2];
+    uint8_t race;
+    char unknown_9;
     uint8_t female;
-    char unknown_12[5];
-    CharacterJobParameter job;
-    char unknown_13[80];
+    char unknown_10[5];
 };
