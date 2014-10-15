@@ -48,7 +48,8 @@ struct CharacterCreatePacket // 11-5
     char unknown_footer[68];
 };
 
-struct CharacterListPacket { //11-3
+struct CharacterListPacket
+{ //11-3
 	PacketHeader header;
 	uint32_t numberOfCharacters;
 	uint32_t unknown_C;
