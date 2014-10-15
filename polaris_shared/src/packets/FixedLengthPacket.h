@@ -27,7 +27,7 @@ struct CharacterSpawnPacket
     char unk_64[4];
     uint32_t voiceParam_unknown4;
     uint32_t voiceParam_unknown8;
-    uint16_t name[16]; //TODO: Find a 16-bit consistant wchar_t.
+    char16_t name[16];
     char unk_90[4];
     CharacterLooksParameter looksParam;
     CharacterJobParameter jobsParam;
