@@ -77,10 +77,21 @@ struct CharacterListPacket
 	CharacterListPacket() : header(PacketHeader(sizeof(CharacterListPacket), 0x11, 0x3, 0x0, 0x0)) {}
 } ATTRPACK;
 
+enum  CharacterCreateParamOneFlag
+{
+	UNKNOWN_0=0,
+	UNKNOWN_1,
+	UNKNOWN_2,
+	UNKNOWN_3,
+	UNKNOWN_4,
+	UNKNOWN_5,
+	UNKNOWN_OTHER
+};
+
 struct CharacterCreateParamOnePkt
 {
 	PacketHeader header;
-	uint32_t unknown_8;
+	uint32_t unknown_8; // CharacterCreateParamOneFlag
 	uint32_t unknown_c;
 	uint32_t unknown_10;
 	uint32_t unknown_14;
