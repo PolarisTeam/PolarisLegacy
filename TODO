@@ -1,5 +1,6 @@
 CyberKitsune's thing we need to do list
 (In order of difficulty, starting with most difficult?) * Task - (Claimed by)
+* Get 3-24 un-hardcoded!!! * (CK / Ninji)
 * Buy CK pizza and cake. - (Nobody)
 * Work on coming up with a decent server architecture design as the current one feels bad. - (Nobody)
 * Redesign packet handler system to not just be a giant function in the connection class. - (Nobody)
