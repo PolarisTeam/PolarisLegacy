@@ -307,7 +307,7 @@ void PolarisConnection::handlePacket(uint8_t *packet)
     if (header->command == 0x11 && header->subcommand == 0x41)
     {
 		CharacterCreateParamOnePkt packetOne;
-		PacketData packetOnePkt(&packetOne, sizeof(packetOne));
+		PacketData packetOnePkt(packetOne);
         sendPacket(packetOnePkt);
     }
 
@@ -315,7 +315,7 @@ void PolarisConnection::handlePacket(uint8_t *packet)
     if (header->command == 0x11 && header->subcommand == 0x54)
     {
 		CharacterCreateParamTwoPkt packetTwo;
-		PacketData packetTwoPkt(&packetTwo, sizeof(packetTwo));
+		PacketData packetTwoPkt(packetTwo);
 		sendPacket(packetTwoPkt);
     }
 

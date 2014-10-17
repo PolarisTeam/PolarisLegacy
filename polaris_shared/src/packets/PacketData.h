@@ -18,6 +18,11 @@ public:
     PacketData(size_t dataSize);
     PacketData(PacketHeader header, void* data);
 	PacketData(void* data, size_t length);
+	template <class C>
+	PacketData(C & thing)
+	{
+		PacketData(&thing, sizeof(C));
+	}
     ~PacketData();
     void appendData(const void* data, size_t length);
     void appendBytes(int value, size_t length);
