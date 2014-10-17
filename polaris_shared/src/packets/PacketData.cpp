@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
-#include <w32api/nmsupp.h>
 #include "Packet.h"
 
 PacketData::PacketData(size_t dataSize)
