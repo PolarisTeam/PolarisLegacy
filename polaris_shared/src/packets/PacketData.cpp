@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
+#include <w32api/nmsupp.h>
 #include "Packet.h"
 
 PacketData::PacketData(size_t dataSize)
@@ -75,4 +76,12 @@ PacketData::PacketData(PacketHeader header, void *data)
     size = (int) header.length;
     appendData(&header, sizeof(header));
     appendData(data, header.length - sizeof(header));
+}
+
+PacketData::PacketData(void *data, size_t length)
+{
+	dataPtr = new uint8_t[length];
+	currentPosition = 0;
+	size = (int) length;
+	appendData(data, length);
 }

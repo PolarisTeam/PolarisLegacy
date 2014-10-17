@@ -306,21 +306,17 @@ void PolarisConnection::handlePacket(uint8_t *packet)
     // Character creator request
     if (header->command == 0x11 && header->subcommand == 0x41)
     {
-        PacketHeader yay(0x18, 0x11, 0x42, 0x0, 0x0);
-        PacketData yayPkt(yay.length);
-        yayPkt.appendData(&yay, sizeof(yay));
-        yayPkt.appendBytes(0, 0x18 - sizeof(yay));
-        sendPacket(yayPkt);
+		CharacterCreateParamOnePkt packetOne;
+		PacketData packetOnePkt(&packetOne, sizeof(packetOne));
+        sendPacket(packetOnePkt);
     }
 
     // Character creator request 2
     if (header->command == 0x11 && header->subcommand == 0x54)
     {
-        PacketHeader yay2(0xC, 0x11, 0x55, 0x0, 0x0);
-        PacketData yayPkt2(yay2.length);
-        yayPkt2.appendData(&yay2, sizeof(yay2));
-        yayPkt2.appendBytes(0, 0xC - sizeof(yay2));
-        sendPacket(yayPkt2);
+		CharacterCreateParamTwoPkt packetTwo;
+		PacketData packetTwoPkt(&packetTwo, sizeof(packetTwo));
+		sendPacket(packetTwoPkt);
     }
 
 	if(header->command == 0x11 && header->subcommand == 0x05)
