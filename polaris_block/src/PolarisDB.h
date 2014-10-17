@@ -10,5 +10,5 @@ private:
 	PolarisDB& operator=(PolarisDB const& copy);
 	Session dbSession;
 public:
-	static PolarisDB getInstance();
+	static PolarisDB &getInstance();
 };

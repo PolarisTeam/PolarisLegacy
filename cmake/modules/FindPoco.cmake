@@ -89,6 +89,16 @@ find_library(POCO_NetSSL_LIBRARY_DBG NAMES ${POCO_NetSSL_LIBRARY_NAMES_DBG} HINT
 make_library_set(POCO_NetSSL_LIBRARY)
 findpkg_finish(POCO_NetSSL)
 
+# Look for Poco's Data package
+findpkg_begin(POCO_Data)
+set(POCO_Data_LIBRARY_NAMES PocoData PocoDatamt)
+get_debug_names(POCO_Data_LIBRARY_NAMES)
+find_path(POCO_Data_INCLUDE_DIR NAMES Poco/Data/Data.h HINTS ${POCO_INCLUDE_DIR} ${POCO_INC_SEARCH_PATH} ${POCO_PKGC_INCLUDE_DIRS} PATH_SUFFIXES Data/include)
+find_library(POCO_Data_LIBRARY_REL NAMES ${POCO_Data_LIBRARY_NAMES} HINTS ${POCO_LIB_SEARCH_PATH} ${POCO_PKGC_LIBRARY_DIRS} PATH_SUFFIXES Linux/i686)
+find_library(POCO_Data_LIBRARY_DBG NAMES ${POCO_Data_LIBRARY_NAMES_DBG} HINTS ${POCO_LIB_SEARCH_PATH} ${POCO_PKGC_LIBRARY_DIRS} PATH_SUFFIXES Linux/i686)
+make_library_set(POCO_Data_LIBRARY)
+findpkg_finish(POCO_Data)
+
 # Look for Poco's Crypto package
 findpkg_begin(POCO_Crypto)
 set(POCO_Crypto_LIBRARY_NAMES PocoCrypto PocoCryptomt)

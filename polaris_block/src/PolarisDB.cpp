@@ -1,6 +1,6 @@
 #include "PolarisDB.h"
 
-PolarisDB PolarisDB::getInstance()
+PolarisDB &PolarisDB::getInstance()
 {
 	static PolarisDB instance;
 	return instance;
