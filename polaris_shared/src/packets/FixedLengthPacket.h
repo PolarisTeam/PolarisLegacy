@@ -86,7 +86,7 @@ struct CharacterCreateParamOnePkt
 	uint32_t unknown_14;
 	CharacterCreateParamOnePkt() : header(PacketHeader(sizeof(CharacterCreateParamOnePkt), 0x11, 0x42, 0x0, 0x0))
 	{
-		memset(this + 0x8, 0, sizeof(CharacterCreateParamOnePkt) - sizeof(PacketHeader)); // Zero out
+		memset(((char *)this) + 0x8, 0, sizeof(CharacterCreateParamOnePkt) - sizeof(PacketHeader)); // Zero out
 	}
 } ATTRPACK;
 
@@ -97,7 +97,7 @@ struct CharacterCreateParamTwoPkt
 
 	CharacterCreateParamTwoPkt() : header(PacketHeader(sizeof(CharacterCreateParamTwoPkt), 0x11, 0x55, 0x0, 0x0))
 	{
-		memset(this + 0x8, 0, sizeof(CharacterCreateParamTwoPkt) - sizeof(PacketHeader)); // Zero out
+		memset(((char *) this )+ 0x8, 0, sizeof(CharacterCreateParamTwoPkt) - sizeof(PacketHeader)); // Zero out
 	}
 } ATTRPACK;
 
