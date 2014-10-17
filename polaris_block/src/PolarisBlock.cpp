@@ -1,3 +1,4 @@
+#include <packets/server/SetAreaPacket.h>
 #include "PolarisBlock.h"
 #include "Poco/Thread.h"
 #include "Poco/Net/ServerSocket.h"

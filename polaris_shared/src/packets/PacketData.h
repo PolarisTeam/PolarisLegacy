@@ -19,7 +19,7 @@ public:
     PacketData(PacketHeader header, void* data);
 	PacketData(void* data, size_t length);
 	template <class C>
-	PacketData(C & thing)
+	PacketData(C& thing)
 	{
 		PacketData(&thing, sizeof(C));
 	}
