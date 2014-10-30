@@ -112,6 +112,44 @@ struct CharacterCreateParamTwoPkt
 	}
 } ATTRPACK;
 
+struct GuildInfoPkt // 1C-1F
+{
+	PacketHeader header;
+	uint32_t unknown_8;
+	uint32_t player_id;
+	uint32_t unknown_10;
+	char16_t nickname[32];
+	uint16_t unknown_34;
+	uint16_t padding_36;
+	char16_t player_name[16];
+	uint16_t unknown_78;
+	uint16_t padding_7A;
+	uint8_t unknown_7C;
+	uint8_t unknown_7D;
+	uint8_t unknown_7E;
+	uint8_t unknown_7F;
+	uint32_t unknown_80;
+	uint32_t unknown_84;
+	uint16_t unknown_88;
+	uint16_t unknown_8A;
+	uint32_t unknown_8C;
+	char16_t guild_name[16];
+	uint16_t unknown_B0;
+	uint16_t padding_B2;
+	uint32_t unknown_B4;
+	uint32_t unknown_B8;
+	uint32_t unknown_BC;
+	uint32_t unknown_C0;
+	uint32_t unknown_C4;
+	uint32_t unknown_C8;
+	uint32_t unknown_CC;
+
+	GuildInfoPkt() : header(PacketHeader(sizeof(GuildInfoPkt), 0x1C, 0x1F, 0x0, 0x0))
+	{
+		memset(((char *) this )+ 0x8, 0, sizeof(GuildInfoPkt) - sizeof(PacketHeader)); // Zero out
+	}
+} ATTRPACK;
+
 
 
 class FixedLengthPacket : public Packet
