@@ -1,4 +1,9 @@
-Polaris Server
+THIS PROJECT HAS BEEN DEPRICATED
+====
+We now are coding PolarisServer in C# at https://github.com/PolarisTeam/PolarisLegacy. Please clone that repository.
+The readme for PolarisLegacy below will remain for archival purposes.
+
+PolarisLegacy Server
 ====
 ## Information
 We're a PSO2 Private server, very, very WIP.
