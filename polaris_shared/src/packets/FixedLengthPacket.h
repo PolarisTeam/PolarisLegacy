@@ -42,9 +42,11 @@ struct CharacterSpawnPacket
     CharacterLooksParameter looksParam;		// 176 bytes
     CharacterJobParameter jobsParam;		// 128 bytes
     uint16_t currentTitle[32];				// 64 bytes
-    char unk_204[2];						// 2 bytes
-    char unknown_206;						// 1 byte :|
-    char unknown_207[101];					// 101 bytes
+    uint32_t unk_204;						// 2 bytes
+    uint8_t gmflag;
+    uint8_t unk_20A[3];
+    uint16_t nickname[12];
+    char unknown_208[72];					// 72 bytes
 	CharacterSpawnPacket() : header(PacketHeader(sizeof(CharacterSpawnPacket), 0x8, 0x4, 0x0, 0x0)) {}
 } ATTRPACK;
 
